@@ -1,0 +1,3 @@
+[submodule "Assets/Markov"]
+	path = Assets/Markov
+	url = https://github.com/Bars1704/Markov
