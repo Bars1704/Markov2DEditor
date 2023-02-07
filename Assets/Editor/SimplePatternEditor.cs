@@ -2,8 +2,8 @@ using MarkovTest.TwoDimension.Patterns;
 using UnityEditor;
 using UnityEngine;
 
-
-[CustomEditor(typeof(Pattern<byte>))] 
+[CustomEditor(typeof(SimplePatternContainer))]
+[CanEditMultipleObjects]
 public class SimplePatternEditor : Editor
 {
     public override void OnInspectorGUI()

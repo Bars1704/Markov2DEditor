@@ -10,14 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89de890e5e4a10f4a9241bc60fc4a25d, type: 3}
-  m_Name: New Color Palette
+  m_Name: PaletteRed
   m_EditorClassIdentifier: 
   Colors:
   - serializedVersion: 2
-    rgba: 4280090879
+    rgba: 4294916537
   - serializedVersion: 2
-    rgba: 4278254335
+    rgba: 4283891967
   - serializedVersion: 2
-    rgba: 4278255467
+    rgba: 4280877244
   - serializedVersion: 2
-    rgba: 4294959360
+    rgba: 4278214394
+  - serializedVersion: 2
+    rgba: 4280877244
+  - serializedVersion: 2
+    rgba: 4294916537
+  - serializedVersion: 2
+    rgba: 4282992969

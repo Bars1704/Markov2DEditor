@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89de890e5e4a10f4a9241bc60fc4a25d, type: 3}
+  m_Name: PaletteBlue
+  m_EditorClassIdentifier: 
+  Colors:
+  - serializedVersion: 2
+    rgba: 4284164849
+  - serializedVersion: 2
+    rgba: 4294950144
+  - serializedVersion: 2
+    rgba: 4278238236
+  - serializedVersion: 2
+    rgba: 4289855489
+  - serializedVersion: 2
+    rgba: 4291418900
+  - serializedVersion: 2
+    rgba: 4294916410
+  - serializedVersion: 2
+    rgba: 4282992969
