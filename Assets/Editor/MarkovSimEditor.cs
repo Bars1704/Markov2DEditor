@@ -17,6 +17,19 @@ public class MarkovSimEditor : Editor
 {
     private static SceneContext _sceneContext = new SceneContext();
     Vector2 scrollPosition;
+    private byte _currentColorIndex;
+
+    private const float INTEND_SPACE = 20;
+
+    private void Awake()
+    {
+        Load();
+    }
+    
+    private void OnDestroy()
+    {
+        Save();
+    }
 
     public override void OnInspectorGUI()
     {
@@ -26,24 +39,24 @@ public class MarkovSimEditor : Editor
 
         DrawDefaultInspector();
         scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(500));
-        GUILayout.TextArea(sim.SerializedSimulation);
-        GUILayout.EndScrollView();
+        EditorGUILayout.TextArea(sim.SerializedSimulation);
+        EditorGUILayout.EndScrollView();
 
-        GUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Save"))
             Save();
 
         if (GUILayout.Button("Load"))
             Load();
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Exit"))
             RunOneStep();
 
         if (GUILayout.Button("Run"))
             Run();
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
 
         if (GUILayout.Button("Init"))
         {
@@ -51,74 +64,78 @@ public class MarkovSimEditor : Editor
             Save();
         }
 
+        var i = EditorGUI.indentLevel;
         DrawSim(sim.Simulation, sim);
     }
 
 
-    private static void DrawSim(MarkovSimulationTwoDim<byte> sim2dim, MarkovSimulation sim)
+    private void DrawSim(MarkovSimulationTwoDim<byte> sim2dim, MarkovSimulation sim)
     {
         if (sim2dim.Seed != null)
             EditorGUILayout.IntField("Seed", sim2dim.Seed.Value);
         else
-            GUILayout.Label("Random Seed");
-        
+            EditorGUILayout.LabelField("Random Seed");
         EditorGUILayout.Vector2Field("Size", new Vector2(sim2dim.Size.X, sim2dim.Size.Y));
-        DrawPlayablesList(sim2dim.Playables, sim);
+        DrawStamp(sim2dim.DefaultState, sim);
+        DrawPlayablesList(sim2dim.Playables, "", sim);
     }
 
-    private static void DrawPattern(Pattern<Byte> pattern, MarkovSimulation sim)
+    private void DrawPattern(Pattern<Byte> pattern, MarkovSimulation sim)
     {
-        GUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
 
-        GUILayout.BeginVertical();
+        EditorGUILayout.BeginVertical();
         for (var x = 0; x < pattern.PatternForm.GetLength(0); x++)
         {
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
             for (var y = 0; y < pattern.PatternForm.GetLength(1); y++)
             {
-                DrawPatternElement(pattern.PatternForm[x, y], sim);
+                DrawPatternElement(pattern.PatternForm[x, y], sim, () => pattern.PatternForm[x,y] = _currentColorIndex);
             }
 
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
         }
 
-        GUILayout.EndVertical();
+        EditorGUILayout.EndVertical();
 
-        GUILayout.EndHorizontal();
-        GUILayout.Space(100);
+        EditorGUILayout.EndHorizontal();
     }
 
 
-    private static void DrawRotationSettings(RotationSettingsFlags settings)
+    private static RotationSettingsFlags DrawRotationSettings(RotationSettingsFlags settings)
     {
-        GUILayout.BeginVertical();
-        GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.Rotate), "Rotate");
-        GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.FlipX), "FlipX");
-        GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.FlipY), "FlipY");
-        GUILayout.EndVertical();
+        RotationSettingsFlags resultFlag = RotationSettingsFlags.None;
+        EditorGUILayout.BeginVertical();
+        if (GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.Rotate), "Rotate"))
+            resultFlag = resultFlag | RotationSettingsFlags.Rotate;
+        if (GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.FlipX), "FlipX"))
+            resultFlag = resultFlag | RotationSettingsFlags.FlipX;
+        if (GUILayout.Toggle(settings.HasFlag(RotationSettingsFlags.FlipY), "FlipY"))
+            resultFlag = resultFlag | RotationSettingsFlags.FlipY;
+        EditorGUILayout.EndVertical();
+        return resultFlag;
     }
 
-    private static void DrawStamp(byte[,] stamp, MarkovSimulation sim)
+    private void DrawStamp(byte[,] stamp, MarkovSimulation sim)
     {
-        GUILayout.BeginVertical();
+        EditorGUILayout.BeginVertical();
         for (var x = 0; x < stamp.GetLength(0); x++)
         {
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
             for (var y = 0; y < stamp.GetLength(1); y++)
             {
-                DrawStampElement(stamp[x, y], sim);
+                DrawStampElement(stamp[x, y], sim, () => stamp[x, y] = _currentColorIndex);
             }
 
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Separator();
         }
 
-        GUILayout.EndVertical();
-
-        GUILayout.Space(100);
+        EditorGUILayout.EndVertical();
     }
 
 
-    private static void DrawSequence(SequenceBase<byte> sequence, MarkovSimulation sim)
+    private void DrawSequence(SequenceBase<byte> sequence, MarkovSimulation sim)
     {
         if (sequence is CycleSequence<byte> cycle)
             DrawCycleSequence(cycle, sim);
@@ -126,43 +143,45 @@ public class MarkovSimEditor : Editor
             DrawMarkovSequence(markov, sim);
     }
 
-    private static void DrawCycleSequence(CycleSequence<byte> cycleSequence, MarkovSimulation sim)
+    private void DrawCycleSequence(CycleSequence<byte> cycleSequence, MarkovSimulation sim)
     {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("Cycle");
-        EditorGUILayout.FloatField(cycleSequence.Cycles);
-        GUILayout.EndHorizontal();
-        DrawPlayablesList(cycleSequence.Playables, sim);
+        EditorGUILayout.BeginHorizontal();
+        cycleSequence.Cycles = EditorGUILayout.IntField(cycleSequence.Cycles);
+        EditorGUILayout.EndHorizontal();
+        DrawPlayablesList(cycleSequence.Playables, "Cycle", sim);
     }
 
-    private static void DrawMarkovSequence(MarkovSequence<byte> markovSequence, MarkovSimulation sim)
+    private void DrawMarkovSequence(MarkovSequence<byte> markovSequence, MarkovSimulation sim)
     {
-        GUILayout.Label("Markov");
-        DrawPlayablesList(markovSequence.Playables, sim);
+        DrawPlayablesList(markovSequence.Playables, "Markov", sim);
     }
 
 
-    private static void DrawPlayablesList(List<ISequencePlayable<byte>> playables, MarkovSimulation sim)
+    private void DrawPlayablesList(List<ISequencePlayable<byte>> playables, string labelName,
+        MarkovSimulation sim)
     {
-        GUILayout.BeginVertical();
+        EditorGUILayout.LabelField(labelName);
+        EditorGUILayout.BeginVertical();
         playables.ForEach(x =>
         {
             DrawPlayable(x, sim);
-            GUILayout.Space(10);
+            EditorGUILayout.Separator();
         });
-        GUILayout.EndVertical();
+        EditorGUILayout.EndVertical();
     }
 
-    private static void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation sim)
+    private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation sim)
     {
+        EditorGUI.indentLevel++;
         if (playable is RuleBase<byte> rule)
             DrawRule(rule, sim);
         else if (playable is SequenceBase<byte> sequence)
             DrawSequence(sequence, sim);
+        EditorGUI.indentLevel--;
     }
 
 
-    private static void DrawRule(RuleBase<byte> rule, MarkovSimulation sim)
+    private void DrawRule(RuleBase<byte> rule, MarkovSimulation sim)
     {
         if (rule is RandomRule<byte> randRule)
             DrawRandomRule(randRule, sim);
@@ -170,33 +189,33 @@ public class MarkovSimEditor : Editor
             DrawAllRule(allRule, sim);
     }
 
-    private static void DrawAllRule(AllRule<byte> rule, MarkovSimulation sim)
+    private void DrawAllRule(AllRule<byte> rule, MarkovSimulation sim)
     {
-        GUILayout.Label("All");
-        GUILayout.BeginHorizontal();
-
+        EditorGUILayout.LabelField("All");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space(EditorGUI.indentLevel * INTEND_SPACE);
         DrawPattern(rule.MainPattern, sim);
-        DrawRotationSettings(rule.RotationSettings);
+        rule.RotationSettings = DrawRotationSettings(rule.RotationSettings);
         GUILayout.Label("->");
         DrawStamp(rule.Stamp, sim);
 
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
     }
 
-    private static void DrawRandomRule(RandomRule<byte> rule, MarkovSimulation sim)
+    private void DrawRandomRule(RandomRule<byte> rule, MarkovSimulation sim)
     {
-        GUILayout.Label("Random");
-        GUILayout.BeginHorizontal();
-
+        EditorGUILayout.LabelField("Random");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space(EditorGUI.indentLevel * INTEND_SPACE);
         DrawPattern(rule.MainPattern, sim);
-        DrawRotationSettings(rule.RotationSettings);
+        rule.RotationSettings = DrawRotationSettings(rule.RotationSettings);
         GUILayout.Label("->");
         DrawStamp(rule.Stamp, sim);
 
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
     }
 
-    private static void DrawStampElement(byte stampElement, MarkovSimulation sim)
+    private static void DrawStampElement(byte stampElement, MarkovSimulation sim, Action OnClicked)
     {
         var style = new GUIStyle();
         style.normal.background = Texture2D.whiteTexture;
@@ -206,11 +225,12 @@ public class MarkovSimEditor : Editor
 
 
         GUI.backgroundColor = sim.ColorPaletteLink.GetColor(stampElement);
-        GUILayout.Button("", style, GUILayout.Width(20), GUILayout.Height(20));
+        if (GUILayout.Button("", style, GUILayout.Width(20), GUILayout.Height(20)))
+            OnClicked?.Invoke();
         GUI.backgroundColor = defaultColor;
     }
 
-    private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulation sim)
+    private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulation sim, Action OnClicked)
     {
         var style = new GUIStyle();
         style.normal.background = Texture2D.whiteTexture;
@@ -225,11 +245,12 @@ public class MarkovSimEditor : Editor
         }
 
         GUI.backgroundColor = sim.ColorPaletteLink.GetColor(((byte)patternElement));
-        GUILayout.Button("", style, GUILayout.Width(20), GUILayout.Height(20));
+        if(GUILayout.Button("", style, GUILayout.Width(20), GUILayout.Height(20)))
+            OnClicked?.Invoke();
         GUI.backgroundColor = defaultColor;
     }
 
-    private static void DrawPalette(MarkovSimulation sim)
+    private void DrawPalette(MarkovSimulation sim)
     {
         if (sim.ColorPaletteLink == default)
         {
@@ -241,24 +262,36 @@ public class MarkovSimEditor : Editor
         buttonStyle.normal.background = Texture2D.whiteTexture;
         buttonStyle.margin = new RectOffset(5, 5, 0, 0);
 
-        GUILayout.Label("Palette");
-        GUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Palette");
         var defaultColor = GUI.backgroundColor;
-        for (var i = 0; i < sim.ColorPaletteLink.Length; i++)
+        GUI.backgroundColor = sim.ColorPaletteLink.GetColor(_currentColorIndex);
+        GUILayout.Button("", buttonStyle);
+        GUI.backgroundColor = defaultColor;
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        defaultColor = GUI.backgroundColor;
+        for (byte i = 0; i < sim.ColorPaletteLink.Length; i++)
         {
             GUI.backgroundColor = sim.ColorPaletteLink.GetColor(i);
-            GUILayout.Button("", buttonStyle);
+            if (GUILayout.Button("", buttonStyle))
+            {
+                _currentColorIndex = i;
+            }
         }
 
         GUI.backgroundColor = defaultColor;
 
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
     }
 
     private void Save()
     {
         MarkovSimulation sim = (MarkovSimulation)target;
         sim.SerializedSimulation = SimulationSerializer.SerializeSim(sim.Simulation);
+        EditorUtility.SetDirty(sim);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
     private void Load()
