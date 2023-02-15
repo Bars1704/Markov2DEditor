@@ -28,8 +28,13 @@ MonoBehaviour:
     },\r\n              \"MainPattern\": {\r\n                \"$type\": \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n                \"PatternForm\": [\r\n                 
     [\r\n                    2,\r\n                    1,\r\n                   
-    1\r\n                  ]\r\n                ]\r\n              }\r\n           
-    }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n        \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
+    1\r\n                  ]\r\n                ],\r\n                \"Size\": {\r\n                 
+    \"$type\": \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n                 
+    \"X\": 1,\r\n                  \"Y\": 3\r\n                }\r\n             
+    },\r\n              \"Size\": {\r\n                \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                \"X\": 1,\r\n                \"Y\": 3\r\n             
+    }\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n       
+    \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n        \"Playables\": {\r\n          \"$type\":
     \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
     mscorlib]], Assembly-CSharp]], mscorlib\",\r\n          \"$values\": [\r\n           
@@ -40,9 +45,13 @@ MonoBehaviour:
     ]\r\n                ]\r\n              },\r\n              \"MainPattern\":
     {\r\n                \"$type\": \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n                \"PatternForm\": [\r\n                 
-    [\r\n                    3\r\n                  ]\r\n                ]\r\n             
-    }\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n       
-    \"$type\": \"MarkovTest.TwoDimension.Sequences.CycleSequence`1[[System.Byte,
+    [\r\n                    3\r\n                  ]\r\n                ],\r\n               
+    \"Size\": {\r\n                  \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                  \"X\": 1,\r\n                  \"Y\":
+    1\r\n                }\r\n              },\r\n              \"Size\": {\r\n               
+    \"$type\": \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n               
+    \"X\": 1,\r\n                \"Y\": 1\r\n              }\r\n            }\r\n         
+    ]\r\n        }\r\n      },\r\n      {\r\n        \"$type\": \"MarkovTest.TwoDimension.Sequences.CycleSequence`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n        \"Cycles\": 1,\r\n        \"Playables\":
     {\r\n          \"$type\": \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
     mscorlib]], Assembly-CSharp]], mscorlib\",\r\n          \"$values\": [\r\n           
@@ -53,9 +62,13 @@ MonoBehaviour:
     ]\r\n                ]\r\n              },\r\n              \"MainPattern\":
     {\r\n                \"$type\": \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n                \"PatternForm\": [\r\n                 
-    [\r\n                    1\r\n                  ]\r\n                ]\r\n             
-    }\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n       
-    \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
+    [\r\n                    1\r\n                  ]\r\n                ],\r\n               
+    \"Size\": {\r\n                  \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                  \"X\": 1,\r\n                  \"Y\":
+    1\r\n                }\r\n              },\r\n              \"Size\": {\r\n               
+    \"$type\": \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n               
+    \"X\": 1,\r\n                \"Y\": 1\r\n              }\r\n            }\r\n         
+    ]\r\n        }\r\n      },\r\n      {\r\n        \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n        \"Playables\": {\r\n          \"$type\":
     \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
     mscorlib]], Assembly-CSharp]], mscorlib\",\r\n          \"$values\": [\r\n           
@@ -72,7 +85,12 @@ MonoBehaviour:
     \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte, mscorlib]], Assembly-CSharp\",\r\n                     
     \"PatternForm\": [\r\n                        [\r\n                         
     4,\r\n                          1\r\n                        ]\r\n                     
-    ]\r\n                    }\r\n                  }\r\n                ]\r\n             
+    ],\r\n                      \"Size\": {\r\n                        \"$type\":
+    \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n                       
+    \"X\": 1,\r\n                        \"Y\": 2\r\n                      }\r\n                   
+    },\r\n                    \"Size\": {\r\n                      \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                      \"X\": 1,\r\n                     
+    \"Y\": 2\r\n                    }\r\n                  }\r\n                ]\r\n             
     }\r\n            },\r\n            {\r\n              \"$type\": \"MarkovTest.TwoDimension.Sequences.CycleSequence`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n              \"Cycles\": 1,\r\n             
     \"Playables\": {\r\n                \"$type\": \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
@@ -86,9 +104,15 @@ MonoBehaviour:
     \"$type\": \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte, mscorlib]],
     Assembly-CSharp\",\r\n                      \"PatternForm\": [\r\n                       
     [\r\n                          4,\r\n                          2,\r\n                         
-    1\r\n                        ]\r\n                      ]\r\n                   
-    }\r\n                  }\r\n                ]\r\n              }\r\n           
-    }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n        \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
+    1\r\n                        ]\r\n                      ],\r\n                     
+    \"Size\": {\r\n                        \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                        \"X\": 1,\r\n                       
+    \"Y\": 3\r\n                      }\r\n                    },\r\n                   
+    \"Size\": {\r\n                      \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                      \"X\": 1,\r\n                     
+    \"Y\": 3\r\n                    }\r\n                  }\r\n                ]\r\n             
+    }\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n       
+    \"$type\": \"MarkovTest.TwoDimension.Sequences.MarkovSequence`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n        \"Playables\": {\r\n          \"$type\":
     \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
     mscorlib]], Assembly-CSharp]], mscorlib\",\r\n          \"$values\": [\r\n           
@@ -99,44 +123,14 @@ MonoBehaviour:
     ]\r\n                ]\r\n              },\r\n              \"MainPattern\":
     {\r\n                \"$type\": \"MarkovTest.TwoDimension.Patterns.Pattern`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n                \"PatternForm\": [\r\n                 
-    [\r\n                    4\r\n                  ]\r\n                ]\r\n             
-    }\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    ]\r\n  },\r\n 
-    \"DefaultState\": {\r\n    \"$type\": \"System.Byte[,], mscorlib\",\r\n    \"$values\":
-    [\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n     
-    [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n     
-    ],\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        2,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n     
-    [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n       
+    [\r\n                    4\r\n                  ]\r\n                ],\r\n               
+    \"Size\": {\r\n                  \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n                  \"X\": 1,\r\n                  \"Y\":
+    1\r\n                }\r\n              },\r\n              \"Size\": {\r\n               
+    \"$type\": \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n               
+    \"X\": 1,\r\n                \"Y\": 1\r\n              }\r\n            }\r\n         
+    ]\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"DefaultState\": {\r\n    \"$type\":
+    \"System.Byte[,], mscorlib\",\r\n    \"$values\": [\r\n      [\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
@@ -160,6 +154,29 @@ MonoBehaviour:
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        2,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n     
+    ],\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n     
+    [\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
@@ -182,6 +199,17 @@ MonoBehaviour:
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
     1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
-    1,\r\n        1,\r\n        1\r\n      ]\r\n    ]\r\n  },\r\n  \"Size\": {\r\n   
-    \"$type\": \"MarkovTest.TwoDimension.Vector2Int, Assembly-CSharp\",\r\n    \"X\":
-    0,\r\n    \"Y\": 0\r\n  },\r\n  \"Seed\": null\r\n}"
+    1,\r\n        1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1\r\n      ],\r\n      [\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n       
+    1,\r\n        1,\r\n        1,\r\n        1,\r\n        1,\r\n        1\r\n     
+    ]\r\n    ]\r\n  },\r\n  \"Size\": {\r\n    \"$type\": \"MarkovTest.TwoDimension.Vector2Int,
+    Assembly-CSharp\",\r\n    \"X\": 21,\r\n    \"Y\": 21\r\n  }\r\n}"

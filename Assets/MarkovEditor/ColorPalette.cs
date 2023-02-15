@@ -7,6 +7,8 @@ public class ColorPalette : ScriptableObject
 {
     [SerializeField] private Color32[] Colors;
 
+    public static byte CurrentColorIndex;
     public int Length => Colors.Length;
     public Color32 GetColor(int index) =>  Colors[index];
+    public Color32 CurrentColor =>  GetColor(CurrentColorIndex);
 }
