@@ -44,7 +44,8 @@ public class MarkovSimulation : ScriptableObject
     {
         if (visualizationMatrix != default)
             foreach (var spriteRenderer in visualizationMatrix)
-                DestroyImmediate(spriteRenderer.gameObject);
+                if (spriteRenderer != default)
+                    DestroyImmediate(spriteRenderer.gameObject);
 
         visualizationMatrix = new SpriteRenderer[sizeX, sizeY];
         Sprite s = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Editor/Resources/cell.png", typeof(Sprite));
@@ -54,7 +55,7 @@ public class MarkovSimulation : ScriptableObject
             for (int y = 0; y < sizeY; y++)
             {
                 var obj = new GameObject($"cell {x},{y}");
-                obj.transform.localPosition = new Vector3(x, sizeY-y, 0);
+                obj.transform.localPosition = new Vector3(x, sizeY - y, 0);
                 obj.transform.SetParent(root.transform);
                 var renderer = obj.AddComponent<SpriteRenderer>();
                 renderer.sprite = s;

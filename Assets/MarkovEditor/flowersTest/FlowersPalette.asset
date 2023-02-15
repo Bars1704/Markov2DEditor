@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89de890e5e4a10f4a9241bc60fc4a25d, type: 3}
-  m_Name: flowerPalette
+  m_Name: FlowersPalette
   m_EditorClassIdentifier: 
   Colors:
   - serializedVersion: 2
-    rgba: 2147483647
+    rgba: 1358954495
   - serializedVersion: 2
-    rgba: 4282013101
+    rgba: 4281750187
   - serializedVersion: 2
-    rgba: 4282049797
+    rgba: 4281787392
   - serializedVersion: 2
-    rgba: 4294946605
+    rgba: 4294946089
   - serializedVersion: 2
-    rgba: 4283730181
+    rgba: 4283533056
   - serializedVersion: 2
-    rgba: 4283836801
+    rgba: 4283639166
   - serializedVersion: 2
-    rgba: 4281068799
+    rgba: 4280806655

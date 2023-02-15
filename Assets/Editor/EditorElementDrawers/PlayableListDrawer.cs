@@ -33,7 +33,11 @@ namespace Editor.EditorElementDrawers
             EditorGUILayout.LabelField(GetName(elem.GetType()));
             for (var i = 0; i < elem.Count; i++)
             {
-                DrawPlayable(elem[i], sim, () => elem.Remove(elem[i]));
+                void OnDeleteButtonClicked() => elem.Remove(elem[i]);
+                void MoveUp() => (elem[i], elem[i - 1]) = (elem[i - 1], elem[i]);
+                void MoveDown() => (elem[i], elem[i + 1]) = (elem[i + 1], elem[i]);
+
+                DrawPlayable(elem[i], sim, OnDeleteButtonClicked, MoveUp, MoveDown);
                 EditorGUILayout.Separator();
             }
 
@@ -77,7 +81,8 @@ namespace Editor.EditorElementDrawers
             menu.ShowAsContext();
         }
 
-        private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation sim, Action OnDeleteButtonClicked)
+        private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation sim, Action OnDeleteButtonClicked,
+            Action moveUp, Action moveDown)
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.BeginHorizontal();
@@ -85,9 +90,15 @@ namespace Editor.EditorElementDrawers
             Drawer.Draw(playable, sim);
             EditorGUILayout.EndVertical();
 
+            EditorGUILayout.BeginVertical();
             if (GUILayout.Button("x", GUILayout.Width(20), GUILayout.Height(20)))
                 OnDeleteButtonClicked?.Invoke();
-
+            EditorGUILayout.Separator();
+            if (GUILayout.Button("^\n|", GUILayout.Width(20), GUILayout.Height(30)))
+                moveUp?.Invoke();
+            if (GUILayout.Button("|\nv", GUILayout.Width(20), GUILayout.Height(30)))
+                moveDown?.Invoke();
+            EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel--;
         }

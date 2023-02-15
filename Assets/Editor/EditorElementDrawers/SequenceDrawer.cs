@@ -11,12 +11,14 @@ namespace Editor.EditorElementDrawers
     {
         public SelectRandomSequence<byte> Draw(SelectRandomSequence<byte> elem, MarkovSimulation sim)
         {
+            EditorGUILayout.LabelField("Random");
             new PlayableListDrawer().Draw(elem.Playables, sim);
             return elem;
         }
 
         public MarkovSequence<byte> Draw(MarkovSequence<byte> elem, MarkovSimulation sim)
         {
+            EditorGUILayout.LabelField("Markov");
             new PlayableListDrawer().Draw(elem.Playables, sim);
             return elem;
         }

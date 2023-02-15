@@ -40,5 +40,8 @@ public class PaletteEditor : UnityEditor.Editor
         EditorGUILayout.EndHorizontal();
 
         GUI.backgroundColor = defaultColor;
+        
+        
+        DrawDefaultInspector();
     }
 }

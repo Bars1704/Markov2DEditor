@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UnityMarkov/Palette")]
 public class ColorPalette : ScriptableObject
 {
-    [SerializeField] private Color32[] Colors;
+    [SerializeField] private Color32[] Colors = new Color32[1];
 
     public static byte CurrentColorIndex;
     public int Length => Colors.Length;
