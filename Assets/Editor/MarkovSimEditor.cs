@@ -217,6 +217,13 @@ namespace Editor
                 DrawCycleSequence(cycle, sim);
             else if (sequence is MarkovSequence<byte> markov)
                 DrawMarkovSequence(markov, sim);
+            else if (sequence is SelectRandomSequence<byte> selectRandom)
+                DrawSelectRandomSequence(selectRandom, sim);
+        }
+
+        private void DrawSelectRandomSequence(SelectRandomSequence<byte> seq, MarkovSimulation sim)
+        {
+            DrawPlayablesList(seq.Playables, "Select random", sim);
         }
 
         private void DrawCycleSequence(CycleSequence<byte> cycleSequence, MarkovSimulation sim)
