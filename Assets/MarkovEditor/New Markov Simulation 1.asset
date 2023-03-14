@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cda3f8c52a6a6474e990eab76698e658, type: 3}
-  m_Name: New Markov Simulation
+  m_Name: New Markov Simulation 1
   m_EditorClassIdentifier: 
-  ColorPaletteLink: {fileID: 11400000, guid: 31c9ca912061bcb4ab877ac41178f838, type: 2}
+  ColorPaletteLink: {fileID: 11400000, guid: e0bfa9ba9a766144d88f238075ac0447, type: 2}
   SerializedSimulation: "{\r\n  \"$type\": \"MarkovTest.TwoDimension.MarkovSimulationTwoDim`1[[System.Byte,
     mscorlib]], Assembly-CSharp\",\r\n  \"Playables\": {\r\n    \"$type\": \"System.Collections.Generic.List`1[[MarkovTest.TwoDimension.Sequences.ISequencePlayable`1[[System.Byte,
     mscorlib]], Assembly-CSharp]], mscorlib\",\r\n    \"$values\": [\r\n      {\r\n       

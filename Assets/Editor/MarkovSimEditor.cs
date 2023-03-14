@@ -15,7 +15,8 @@ namespace Editor
     public class MarkovSimEditor : UnityEditor.Editor
     {
         private static readonly SceneContext _sceneContext = new SceneContext();
-        Vector2 scrollPosition;
+        private Vector2 serializedScrollPosition;
+        private Vector2 defaultStateScrollPosition;
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
@@ -76,7 +77,8 @@ namespace Editor
             _isShowSerialized = EditorGUILayout.Foldout(_isShowSerialized, "Serialized");
             if (_isShowSerialized)
             {
-                scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(500));
+                serializedScrollPosition =
+                    GUILayout.BeginScrollView(serializedScrollPosition, GUILayout.MaxHeight(500));
                 EditorGUILayout.TextArea(sim.SerializedSimulation);
                 EditorGUILayout.EndScrollView();
             }
@@ -95,7 +97,12 @@ namespace Editor
 
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
+            {
+                defaultStateScrollPosition = GUILayout.BeginScrollView(defaultStateScrollPosition,
+                    GUILayout.MaxHeight(500), GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
                 new StampDrawer().Draw(sim2dim.DefaultState, sim);
+                EditorGUILayout.EndScrollView();
+            }
 
             new PlayableListDrawer().Draw(sim2dim.Playables, sim);
         }

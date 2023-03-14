@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cda3f8c52a6a6474e990eab76698e658, type: 3}
-  m_Name: FlowerSim
+  m_Name: flowerSim
   m_EditorClassIdentifier: 
   ColorPaletteLink: {fileID: 11400000, guid: 2b387fd944868f44e92eb7cd1725284e, type: 2}
   SerializedSimulation: "{\r\n  \"$type\": \"MarkovTest.TwoDimension.MarkovSimulationTwoDim`1[[System.Byte,

@@ -15,7 +15,6 @@ namespace Editor.EditorElementDrawers
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space(EditorGUI.indentLevel * INTEND_SPACE);
             new PatternDrawer().Draw(elem.MainPattern, sim);
-            elem.RotationSettings = new RotationSettingsDrawer().Draw(elem.RotationSettings, sim);
             GUILayout.Label("->");
             new StampDrawer().Draw(elem.Stamp, sim);
             EditorGUILayout.EndHorizontal();
