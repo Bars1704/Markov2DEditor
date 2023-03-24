@@ -1,4 +1,4 @@
-using MarkovTest.TwoDimension;
+using MarkovTest.ThreeDimension;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "UnityMarkov/Simulation3D")]
