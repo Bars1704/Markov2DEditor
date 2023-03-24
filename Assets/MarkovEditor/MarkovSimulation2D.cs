@@ -6,7 +6,7 @@ using UnityEngine;
 public class MarkovSimulation2D : ScriptableObject
 {
     public ColorPalette ColorPaletteLink;
-    public MarkovSimulationTwoDim<byte> Simulation = new MarkovSimulationTwoDim<byte>();
+    public MarkovSimulation<byte> Simulation = new MarkovSimulation<byte>();
     [HideInInspector] public string SerializedSimulation;
 
 

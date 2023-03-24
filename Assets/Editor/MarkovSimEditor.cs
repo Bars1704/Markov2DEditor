@@ -85,7 +85,7 @@ namespace Editor
         }
 
 
-        private void DrawSimulation(MarkovSimulationTwoDim<byte> sim2dim, MarkovSimulation2D sim)
+        private void DrawSimulation(MarkovSimulation<byte> sim2dim, MarkovSimulation2D sim)
         {
             EditorGUILayout.BeginHorizontal();
             seed = EditorGUILayout.IntField("Seed", seed);
@@ -134,7 +134,7 @@ namespace Editor
             if (!_sceneContext.IsActive())
                 _sceneContext.Enter();
             MarkovSimulation2D sim = (MarkovSimulation2D)target;
-            sim.Simulation.Play(sim.Simulation, seed);
+            sim.Simulation.Play(seed);
             sim.Visualize(_sceneContext.rootGameObject);
         }
     }
