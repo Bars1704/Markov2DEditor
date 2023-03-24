@@ -6,7 +6,7 @@ namespace Editor.EditorElementDrawers
 {
     public class RandomRuleDrawer : IEditorElementDrawer<RandomRule<byte>>
     {
-        public RandomRule<byte> Draw(RandomRule<byte> elem, MarkovSimulation sim)
+        public RandomRule<byte> Draw(RandomRule<byte> elem, MarkovSimulation2D sim)
         {
             new ResizableDrawer().Draw(elem, sim);
             EditorGUILayout.LabelField("Random");

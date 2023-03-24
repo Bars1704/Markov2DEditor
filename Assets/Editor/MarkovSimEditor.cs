@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Editor
 {
-    [CustomEditor(typeof(MarkovSimulation))]
+    [CustomEditor(typeof(MarkovSimulation2D))]
     public class MarkovSimEditor : UnityEditor.Editor
     {
         private static readonly SceneContext _sceneContext = new SceneContext();
@@ -36,7 +36,7 @@ namespace Editor
         {
             DrawDefaultInspector();
 
-            var sim = (MarkovSimulation)target;
+            var sim = (MarkovSimulation2D)target;
 
             if (sim.ColorPaletteLink == default)
             {
@@ -72,7 +72,7 @@ namespace Editor
             }
         }
 
-        private void DrawSerializableField(MarkovSimulation sim)
+        private void DrawSerializableField(MarkovSimulation2D sim)
         {
             _isShowSerialized = EditorGUILayout.Foldout(_isShowSerialized, "Serialized");
             if (_isShowSerialized)
@@ -85,7 +85,7 @@ namespace Editor
         }
 
 
-        private void DrawSimulation(MarkovSimulationTwoDim<byte> sim2dim, MarkovSimulation sim)
+        private void DrawSimulation(MarkovSimulationTwoDim<byte> sim2dim, MarkovSimulation2D sim)
         {
             EditorGUILayout.BeginHorizontal();
             seed = EditorGUILayout.IntField("Seed", seed);
@@ -110,7 +110,7 @@ namespace Editor
 
         private void Save()
         {
-            MarkovSimulation sim = (MarkovSimulation)target;
+            MarkovSimulation2D sim = (MarkovSimulation2D)target;
             sim.SerializedSimulation = SimulationSerializer.SerializeSim(sim.Simulation);
             EditorUtility.SetDirty(sim);
             AssetDatabase.SaveAssets();
@@ -119,7 +119,7 @@ namespace Editor
 
         private void Load()
         {
-            MarkovSimulation sim = (MarkovSimulation)target;
+            MarkovSimulation2D sim = (MarkovSimulation2D)target;
             sim.Simulation = SimulationSerializer.DeserializeSim<byte>(sim.SerializedSimulation);
         }
 
@@ -133,7 +133,7 @@ namespace Editor
         {
             if (!_sceneContext.IsActive())
                 _sceneContext.Enter();
-            MarkovSimulation sim = (MarkovSimulation)target;
+            MarkovSimulation2D sim = (MarkovSimulation2D)target;
             sim.Simulation.Play(sim.Simulation, seed);
             sim.Visualize(_sceneContext.rootGameObject);
         }

@@ -18,7 +18,7 @@ namespace Editor.EditorElementDrawers
             PlayableTypes = GetAllPlayables().ToList();
         }
 
-        public List<ISequencePlayable<byte>> Draw(List<ISequencePlayable<byte>> elem, MarkovSimulation sim)
+        public List<ISequencePlayable<byte>> Draw(List<ISequencePlayable<byte>> elem, MarkovSimulation2D sim)
         {
             _boxStyle ??= new GUIStyle(GUI.skin.box)
             {
@@ -81,7 +81,7 @@ namespace Editor.EditorElementDrawers
             menu.ShowAsContext();
         }
 
-        private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation sim, Action OnDeleteButtonClicked,
+        private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation2D sim, Action OnDeleteButtonClicked,
             Action moveUp, Action moveDown)
         {
             EditorGUI.indentLevel++;

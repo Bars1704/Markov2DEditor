@@ -6,7 +6,7 @@ namespace Editor.EditorElementDrawers
 {
     public class StampDrawer : IEditorElementDrawer<byte[,]>
     {
-        public byte[,] Draw(byte[,] elem, MarkovSimulation sim)
+        public byte[,] Draw(byte[,] elem, MarkovSimulation2D sim)
         {
             EditorGUILayout.BeginVertical();
             for (var y = 0; y < elem.GetLength(1); y++)
@@ -23,7 +23,7 @@ namespace Editor.EditorElementDrawers
             return elem;
         }
 
-        private static void DrawStampElement(byte stampElement, MarkovSimulation sim, Action OnClicked)
+        private static void DrawStampElement(byte stampElement, MarkovSimulation2D sim, Action OnClicked)
         {
             var style = new GUIStyle
             {

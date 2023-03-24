@@ -5,7 +5,7 @@ namespace Editor.EditorElementDrawers
 {
     public class ResizableDrawer: IEditorElementDrawer<IResizable>
     {
-        public IResizable Draw(IResizable elem, MarkovSimulation sim)
+        public IResizable Draw(IResizable elem, MarkovSimulation2D sim)
         {
             EditorGUILayout.BeginHorizontal();
             var size = elem.Size;

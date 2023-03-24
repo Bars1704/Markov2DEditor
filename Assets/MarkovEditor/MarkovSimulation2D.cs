@@ -2,8 +2,8 @@ using MarkovTest.TwoDimension;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "UnityMarkov/Simulation")]
-public class MarkovSimulation : ScriptableObject
+[CreateAssetMenu(menuName = "UnityMarkov/Simulation2D")]
+public class MarkovSimulation2D : ScriptableObject
 {
     public ColorPalette ColorPaletteLink;
     public MarkovSimulationTwoDim<byte> Simulation = new MarkovSimulationTwoDim<byte>();

@@ -6,7 +6,7 @@ namespace Editor.EditorElementDrawers
 {
     public class RotationSettingsDrawer : IEditorElementDrawer<RotationSettingsFlags>
     {
-        public RotationSettingsFlags Draw(RotationSettingsFlags elem, MarkovSimulation sim)
+        public RotationSettingsFlags Draw(RotationSettingsFlags elem, MarkovSimulation2D sim)
         {
             RotationSettingsFlags resultFlag = RotationSettingsFlags.None;
             EditorGUILayout.BeginVertical();

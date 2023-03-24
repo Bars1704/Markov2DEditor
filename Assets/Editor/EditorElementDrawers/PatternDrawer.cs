@@ -7,7 +7,7 @@ namespace Editor.EditorElementDrawers
 {
     public class PatternDrawer : IEditorElementDrawer<Pattern<byte>>
     {
-        public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulation sim)
+        public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulation2D sim)
         {
             elem.RotationSettings = new RotationSettingsDrawer().Draw(elem.RotationSettings, sim);
             EditorGUILayout.BeginHorizontal();
@@ -29,7 +29,7 @@ namespace Editor.EditorElementDrawers
             return elem;
         }
 
-        private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulation sim, Action OnClicked)
+        private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulation2D sim, Action OnClicked)
         {
             var style = new GUIStyle
             {

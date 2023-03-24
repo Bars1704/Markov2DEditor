@@ -8,7 +8,7 @@ namespace Editor.EditorElementDrawers
     {
         private const float INTEND_SPACE = 20;
 
-        public AllRule<byte> Draw(AllRule<byte> elem, MarkovSimulation sim)
+        public AllRule<byte> Draw(AllRule<byte> elem, MarkovSimulation2D sim)
         {
             new ResizableDrawer().Draw(elem,sim);
             EditorGUILayout.LabelField("All");

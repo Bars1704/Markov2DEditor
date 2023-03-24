@@ -32,7 +32,7 @@ namespace Editor
         }
 
 
-        public static void Draw(object elem, MarkovSimulation sim)
+        public static void Draw(object elem, MarkovSimulation2D sim)
         {
             var elemType = elem.GetType();
             var seekenType = typeof(IEditorElementDrawer<>).MakeGenericType(elemType);
@@ -45,7 +45,7 @@ namespace Editor
             }
 
             var drawer = Activator.CreateInstance(type);
-            var method = type.GetMethod("Draw", new Type[] { elemType, typeof(MarkovSimulation) });
+            var method = type.GetMethod("Draw", new Type[] { elemType, typeof(MarkovSimulation2D) });
             method.Invoke(drawer, new object[] { elem, sim });
         }
     }

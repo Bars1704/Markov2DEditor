@@ -5,7 +5,7 @@ namespace Editor.EditorElementDrawers
 {
     public class PaletteDrawer : IEditorElementDrawer<ColorPalette>
     {
-        public ColorPalette Draw(ColorPalette elem, MarkovSimulation sim)
+        public ColorPalette Draw(ColorPalette elem, MarkovSimulation2D sim)
         {
             var buttonStyle = new GUIStyle
             {
