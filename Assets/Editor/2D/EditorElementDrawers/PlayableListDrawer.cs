@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Editor._2D;
+using MarkovEditor;
+using MarkovTest;
+using MarkovTest.Sequences;
 using MarkovTest.TwoDimension.Rules;
-using MarkovTest.TwoDimension.Sequences;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class PlayableListDrawer : IEditorElementDrawer<List<ISequencePlayable<byte>>>
+    public class PlayableListDrawer<T> : IEditorElementDrawer<List<ISequencePlayable<byte, T>>,
+        IMarkovSimulationDrawer> where T : IMarkovSimulation<byte>
     {
         private static List<Type> PlayableTypes = new List<Type>();
         private static GUIStyle _boxStyle;
@@ -18,7 +22,8 @@ namespace Editor.EditorElementDrawers
             PlayableTypes = GetAllPlayables().ToList();
         }
 
-        public List<ISequencePlayable<byte>> Draw(List<ISequencePlayable<byte>> elem, MarkovSimulation2D sim)
+        public List<ISequencePlayable<byte, T>> Draw(
+            List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim)
         {
             _boxStyle ??= new GUIStyle(GUI.skin.box)
             {
@@ -49,7 +54,7 @@ namespace Editor.EditorElementDrawers
         }
 
 
-        private void DrawAddNewElemDropList(List<ISequencePlayable<byte>> playables)
+        private void DrawAddNewElemDropList(List<ISequencePlayable<byte, T>> playables)
         {
             GenericMenu menu = new GenericMenu();
 
@@ -58,30 +63,37 @@ namespace Editor.EditorElementDrawers
             var seekableRule = typeof(RuleBase<byte>).GetGenericTypeDefinition();
             var rules = TypesParents.Where(x => seekableRule.IsAssignableFrom(x.BaseType?.GetGenericTypeDefinition()))
                 .ToList();
-            var seekableSeq = typeof(SequenceBase<byte>).GetGenericTypeDefinition();
+            var seekableSeq = typeof(SequenceBase<byte, IMarkovSimulation<byte>>).GetGenericTypeDefinition();
             var sequences = TypesParents
                 .Where(x => seekableSeq.IsAssignableFrom(x.BaseType?.GetGenericTypeDefinition())).ToList();
             var other = PlayableTypes.Except(rules).Except(sequences);
 
             foreach (var rule in rules)
                 AddMenuItem(menu, $"Rule/{GetName(rule)}",
-                    () => playables.Add(Activator.CreateInstance(CreateGenericType(rule)) as ISequencePlayable<byte>));
+                    () => playables.Add(
+                        Activator.CreateInstance(CreateGenericType(rule)) as
+                            ISequencePlayable<byte, T>));
 
             menu.AddSeparator("Sequences/");
 
             foreach (var seq in sequences)
                 AddMenuItem(menu, $"Sequences/{GetName(seq)}",
-                    () => playables.Add(Activator.CreateInstance(CreateGenericType(seq)) as ISequencePlayable<byte>));
+                    () => playables.Add(
+                        Activator.CreateInstance(CreateGenericType(seq)) as
+                            ISequencePlayable<byte, T>));
 
             menu.AddSeparator("Other/");
             foreach (var oth in other)
                 AddMenuItem(menu, $"Other/{GetName(oth)}",
-                    () => playables.Add(Activator.CreateInstance(CreateGenericType(oth)) as ISequencePlayable<byte>));
+                    () => playables.Add(
+                        Activator.CreateInstance(CreateGenericType(oth)) as
+                            ISequencePlayable<byte, T>));
 
             menu.ShowAsContext();
         }
 
-        private void DrawPlayable(ISequencePlayable<byte> playable, MarkovSimulation2D sim, Action OnDeleteButtonClicked,
+        private void DrawPlayable(ISequencePlayable<byte, T> playable, IMarkovSimulationDrawer sim,
+            Action OnDeleteButtonClicked,
             Action moveUp, Action moveDown)
         {
             EditorGUI.indentLevel++;
@@ -132,7 +144,7 @@ namespace Editor.EditorElementDrawers
                 .SelectMany(x => x.GetTypes())
                 .Where(t => !t.IsInterface && !t.IsAbstract);
 
-            var seekedType = typeof(ISequencePlayable<byte>).GetGenericTypeDefinition();
+            var seekedType = typeof(ISequencePlayable<byte, IMarkovSimulation<byte>>).GetGenericTypeDefinition();
 
 
             var result = allTypes.Where(type => type.GetInterfaces()

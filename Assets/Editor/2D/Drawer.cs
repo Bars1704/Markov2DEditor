@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MarkovEditor;
+using MarkovEditor._2D;
+using MarkovTest;
 using UnityEditor;
 
-namespace Editor
+namespace Editor._2D
 {
     public static class Drawer
     {
-        private static List<Type> DrawerTypes = new List<Type>();
-
+        private static readonly List<Type> DrawerTypes = new List<Type>();
 
         static Drawer()
         {
@@ -21,7 +23,7 @@ namespace Editor
                 .SelectMany(x => x.GetTypes())
                 .Where(t => !t.IsInterface && !t.IsAbstract);
 
-            var seekedType = typeof(IEditorElementDrawer<>);
+            var seekedType = typeof(IEditorElementDrawer<,>);
 
             var result = allTypes.Where(type => type.GetInterfaces()
                 .Where(t => t.IsGenericType)
@@ -32,12 +34,15 @@ namespace Editor
         }
 
 
-        public static void Draw(object elem, MarkovSimulation2D sim)
+        public static void Draw(object elem, IMarkovSimulationDrawer sim)
         {
             var elemType = elem.GetType();
-            var seekenType = typeof(IEditorElementDrawer<>).MakeGenericType(elemType);
-            var type = DrawerTypes.FirstOrDefault(x => seekenType.IsAssignableFrom(x));
-
+            
+            var type = DrawerTypes.Select(x => (x, x.GetInterfaces().Select(y => y.GetGenericArguments()[0])))
+                .FirstOrDefault(x =>
+                    x.Item2.Where(y => y.IsGenericType).Select(y => y.GetGenericTypeDefinition())
+                        .Contains(elemType.GetGenericTypeDefinition())).x;
+            
             if (type == default)
             {
                 EditorGUILayout.HelpBox($"No Drawer for {elemType}", MessageType.Error);
@@ -45,7 +50,7 @@ namespace Editor
             }
 
             var drawer = Activator.CreateInstance(type);
-            var method = type.GetMethod("Draw", new Type[] { elemType, typeof(MarkovSimulation2D) });
+            var method = type.GetMethod("Draw", new Type[] { elemType, sim.GetType() });
             method.Invoke(drawer, new object[] { elem, sim });
         }
     }

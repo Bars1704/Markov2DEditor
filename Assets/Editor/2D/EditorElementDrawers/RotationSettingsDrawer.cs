@@ -1,12 +1,13 @@
+using MarkovEditor._2D;
 using MarkovTest.TwoDimension.Rules;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class RotationSettingsDrawer : IEditorElementDrawer<RotationSettingsFlags>
+    public class RotationSettingsDrawer : IEditorElementDrawer<RotationSettingsFlags, MarkovSimulationDrawer2D>
     {
-        public RotationSettingsFlags Draw(RotationSettingsFlags elem, MarkovSimulation2D sim)
+        public RotationSettingsFlags Draw(RotationSettingsFlags elem, MarkovSimulationDrawer2D sim)
         {
             RotationSettingsFlags resultFlag = RotationSettingsFlags.None;
             EditorGUILayout.BeginVertical();

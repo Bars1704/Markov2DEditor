@@ -1,11 +1,12 @@
+using MarkovEditor._2D;
 using MarkovTest.TwoDimension;
 using UnityEditor;
 
 namespace Editor.EditorElementDrawers
 {
-    public class ResizableDrawer: IEditorElementDrawer<IResizable>
+    public class ResizableDrawer : IEditorElementDrawer<IResizable, MarkovSimulationDrawer2D>
     {
-        public IResizable Draw(IResizable elem, MarkovSimulation2D sim)
+        public IResizable Draw(IResizable elem, MarkovSimulationDrawer2D sim)
         {
             EditorGUILayout.BeginHorizontal();
             var size = elem.Size;

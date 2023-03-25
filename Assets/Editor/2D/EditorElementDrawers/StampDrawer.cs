@@ -1,12 +1,13 @@
 using System;
+using MarkovEditor._2D;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class StampDrawer : IEditorElementDrawer<byte[,]>
+    public class StampDrawer : IEditorElementDrawer<byte[,], MarkovSimulationDrawer2D>
     {
-        public byte[,] Draw(byte[,] elem, MarkovSimulation2D sim)
+        public byte[,] Draw(byte[,] elem, MarkovSimulationDrawer2D sim)
         {
             EditorGUILayout.BeginVertical();
             for (var y = 0; y < elem.GetLength(1); y++)
@@ -23,7 +24,7 @@ namespace Editor.EditorElementDrawers
             return elem;
         }
 
-        private static void DrawStampElement(byte stampElement, MarkovSimulation2D sim, Action OnClicked)
+        private static void DrawStampElement(byte stampElement, MarkovSimulationDrawer2D sim, Action OnClicked)
         {
             var style = new GUIStyle
             {

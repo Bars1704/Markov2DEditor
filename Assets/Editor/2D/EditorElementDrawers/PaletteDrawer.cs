@@ -1,11 +1,14 @@
+using MarkovEditor;
+using MarkovEditor._2D;
+using MarkovTest;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class PaletteDrawer : IEditorElementDrawer<ColorPalette>
+    public class PaletteDrawer : IEditorElementDrawer<ColorPalette, MarkovSimulationDrawer2D>
     {
-        public ColorPalette Draw(ColorPalette elem, MarkovSimulation2D sim)
+        public ColorPalette Draw(ColorPalette elem, MarkovSimulationDrawer2D sim)
         {
             var buttonStyle = new GUIStyle
             {

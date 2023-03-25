@@ -1,29 +1,36 @@
 using System;
-using System.Collections.Generic;
-using MarkovTest.TwoDimension.Sequences;
+using MarkovEditor;
+using MarkovTest;
+using MarkovTest.Sequences;
+using MarkovTest.TwoDimension;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class SequenceDrawer : IEditorElementDrawer<SelectRandomSequence<byte>>,
-        IEditorElementDrawer<MarkovSequence<byte>>, IEditorElementDrawer<CycleSequence<byte>>
+    public class SequenceDrawer :
+        IEditorElementDrawer<SelectRandomSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>,
+        IEditorElementDrawer<MarkovSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>,
+        IEditorElementDrawer<CycleSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>
     {
-        public SelectRandomSequence<byte> Draw(SelectRandomSequence<byte> elem, MarkovSimulation2D sim)
+        public SelectRandomSequence<byte, MarkovSimulation<byte>> Draw(
+            SelectRandomSequence<byte, MarkovSimulation<byte>> elem,
+            IMarkovSimulationDrawer sim)
         {
             EditorGUILayout.LabelField("Random");
-            new PlayableListDrawer().Draw(elem.Playables, sim);
+            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
             return elem;
         }
 
-        public MarkovSequence<byte> Draw(MarkovSequence<byte> elem, MarkovSimulation2D sim)
+        public MarkovSequence<byte, MarkovSimulation<byte>> Draw(MarkovSequence<byte, MarkovSimulation<byte>> elem,
+            IMarkovSimulationDrawer sim)
         {
             EditorGUILayout.LabelField("Markov");
-            new PlayableListDrawer().Draw(elem.Playables, sim);
+            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
             return elem;
         }
 
-        public CycleSequence<byte> Draw(CycleSequence<byte> elem, MarkovSimulation2D sim)
+        public CycleSequence<byte, MarkovSimulation<byte>> Draw(CycleSequence<byte, MarkovSimulation<byte>> elem, IMarkovSimulationDrawer sim)
         {
             var style = new GUIStyle(GUI.skin.textField)
             {
@@ -31,7 +38,7 @@ namespace Editor.EditorElementDrawers
             };
 
             elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycle", elem.Cycles, style), 1);
-            new PlayableListDrawer().Draw(elem.Playables, sim);
+            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
             return elem;
         }
     }

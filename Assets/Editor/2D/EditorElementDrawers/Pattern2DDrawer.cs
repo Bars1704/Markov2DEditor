@@ -1,13 +1,14 @@
 using System;
+using MarkovEditor._2D;
 using MarkovTest.TwoDimension.Patterns;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class PatternDrawer : IEditorElementDrawer<Pattern<byte>>
+    public class Pattern2DDrawer : IEditorElementDrawer<Pattern<byte>, MarkovSimulationDrawer2D>
     {
-        public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulation2D sim)
+        public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulationDrawer2D sim)
         {
             elem.RotationSettings = new RotationSettingsDrawer().Draw(elem.RotationSettings, sim);
             EditorGUILayout.BeginHorizontal();
@@ -29,7 +30,7 @@ namespace Editor.EditorElementDrawers
             return elem;
         }
 
-        private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulation2D sim, Action OnClicked)
+        private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulationDrawer2D sim, Action OnClicked)
         {
             var style = new GUIStyle
             {

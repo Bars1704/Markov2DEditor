@@ -1,7 +1,11 @@
+using System;
+using MarkovEditor;
+using MarkovTest;
+
 namespace Editor
 {
-    public interface IEditorElementDrawer<T>
+    public interface IEditorElementDrawer<TElementDraw, in TSimulationElement> where TSimulationElement : IMarkovSimulationDrawer
     {
-        public T Draw(T elem, MarkovSimulation2D sim);
+        public TElementDraw Draw(TElementDraw elem, TSimulationElement sim);
     }
 }
