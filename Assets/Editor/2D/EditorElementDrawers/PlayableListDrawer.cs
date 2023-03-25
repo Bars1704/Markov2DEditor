@@ -134,7 +134,9 @@ namespace Editor.EditorElementDrawers
 
         private string GetName(Type t) => t.Name.Split('`').First();
 
-        private Type CreateGenericType(Type t) => t.MakeGenericType(typeof(byte));
+        private Type CreateGenericType(Type t) => t.GetGenericArguments().Length == 1
+            ? t.MakeGenericType(typeof(byte))
+            : t.MakeGenericType(typeof(byte), typeof(T));
 
         private static Texture2D MakeTex(int width, int height, Color col)
         {
