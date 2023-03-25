@@ -39,8 +39,20 @@ namespace Editor.EditorElementDrawers
             for (var i = 0; i < elem.Count; i++)
             {
                 void OnDeleteButtonClicked() => elem.Remove(elem[i]);
-                void MoveUp() => (elem[i], elem[i - 1]) = (elem[i - 1], elem[i]);
-                void MoveDown() => (elem[i], elem[i + 1]) = (elem[i + 1], elem[i]);
+
+                var index = i;
+
+                void MoveUp()
+                {
+                    var newIndex = index <= 0 ? index : index - 1;
+                    (elem[index], elem[newIndex]) = (elem[newIndex], elem[index]);
+                }
+
+                void MoveDown()
+                {
+                    var newIndex = index >= elem.Count ? index : index + 1;
+                    (elem[i], elem[newIndex]) = (elem[newIndex], elem[i]);
+                }
 
                 DrawPlayable(elem[i], sim, OnDeleteButtonClicked, MoveUp, MoveDown);
                 EditorGUILayout.Separator();
