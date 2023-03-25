@@ -38,11 +38,9 @@ namespace Editor._2D
         {
             var elemType = elem.GetType();
             
-            var type = DrawerTypes.Select(x => (x, x.GetInterfaces().Select(y => y.GetGenericArguments()[0])))
-                .FirstOrDefault(x =>
-                    x.Item2.Where(y => y.IsGenericType).Select(y => y.GetGenericTypeDefinition())
-                        .Contains(elemType.GetGenericTypeDefinition())).x;
-            
+            var seekType = typeof(IEditorElementDrawer<,>).MakeGenericType(elemType, sim.GetType());
+            var type = DrawerTypes.FirstOrDefault(x => seekType.IsAssignableFrom(x));
+
             if (type == default)
             {
                 EditorGUILayout.HelpBox($"No Drawer for {elemType}", MessageType.Error);
