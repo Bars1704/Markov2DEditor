@@ -3,7 +3,7 @@ using MarkovTest.TwoDimension.Rules;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor._2D.EditorElementDrawers
 {
     public class RotationSettingsDrawer : IEditorElementDrawer<RotationSettingsFlags, MarkovSimulationDrawer2D>
     {

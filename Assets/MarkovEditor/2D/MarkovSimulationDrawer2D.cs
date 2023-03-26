@@ -8,8 +8,8 @@ namespace MarkovEditor._2D
     [CreateAssetMenu(menuName = "UnityMarkov/Simulation2D")]
     public class MarkovSimulationDrawer2D : ScriptableObject, IMarkovSimulationDrawer
     {
-        public ColorPalette ColorPaletteLink;
-
+        [SerializeField]private ColorPalette _colorPaletteLink;
+        public ColorPalette ColorPaletteLink => _colorPaletteLink;
         public MarkovSimulation<byte> MarkovSimulation { get; set; } = new MarkovSimulation<byte>();
         public IMarkovSimulation<byte> Simulation { get => MarkovSimulation; set => MarkovSimulation = value as MarkovSimulation<byte>; }
 

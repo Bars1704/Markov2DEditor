@@ -1,10 +1,9 @@
-using MarkovEditor;
 using MarkovEditor._2D;
 using MarkovTest.TwoDimension.Rules;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor._2D.EditorElementDrawers
 {
     public class RandomRuleDrawer : IEditorElementDrawer<RandomRule<byte>, MarkovSimulationDrawer2D>
     {
@@ -14,7 +13,7 @@ namespace Editor.EditorElementDrawers
             EditorGUILayout.LabelField("Random");
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space(EditorGUI.indentLevel * 20);
-            new Pattern2DDrawer().Draw(elem.MainPattern, sim);
+            new PatternDrawer().Draw(elem.MainPattern, sim);
             GUILayout.Label("->");
             new StampDrawer().Draw(elem.Stamp, sim);
 

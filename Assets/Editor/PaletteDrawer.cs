@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Editor.EditorElementDrawers
 {
-    public class PaletteDrawer : IEditorElementDrawer<ColorPalette, MarkovSimulationDrawer2D>
+    public class PaletteDrawer : IEditorElementDrawer<ColorPalette, IMarkovSimulationDrawer>
     {
-        public ColorPalette Draw(ColorPalette elem, MarkovSimulationDrawer2D sim)
+        public ColorPalette Draw(ColorPalette elem, IMarkovSimulationDrawer sim)
         {
             var buttonStyle = new GUIStyle
             {

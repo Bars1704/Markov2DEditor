@@ -1,9 +1,9 @@
-using Editor._2D.EditorElementDrawers;
+using System.Collections.Generic;
+using Editor._3D.EditorElementDrawers;
 using Editor.EditorElementDrawers;
-using MarkovEditor._2D;
 using MarkovTest;
 using MarkovTest.Serialization;
-using MarkovTest.TwoDimension;
+using MarkovTest.ThreeDimension;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,10 +11,10 @@ using Random = UnityEngine.Random;
 // ReSharper disable AccessToModifiedClosure
 
 
-namespace Editor
+namespace Editor._3D
 {
-    [CustomEditor(typeof(MarkovSimulationDrawer2D))]
-    public class MarkovSimulation2DEditor : UnityEditor.Editor
+    [CustomEditor(typeof(MarkovSimulationDrawer3D))]
+    public class MarkovSimulation3DEditor : UnityEditor.Editor
     {
         private static readonly SceneContext _sceneContext = new SceneContext();
         private Vector2 serializedScrollPosition;
@@ -22,8 +22,9 @@ namespace Editor
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
+        
+        private int defaultStateZIndexCoord;
         private int seed;
-
         private void Awake()
         {
             Load();
@@ -38,7 +39,7 @@ namespace Editor
         {
             DrawDefaultInspector();
 
-            var sim = (MarkovSimulationDrawer2D)target;
+            var sim = (MarkovSimulationDrawer3D)target;
 
             if (sim.ColorPaletteLink == default)
             {
@@ -69,50 +70,48 @@ namespace Editor
 
             if (GUILayout.Button("Init"))
             {
-                sim.Simulation = SimulationFabric.Labirynth();
-                Save();
+               
             }
         }
 
-        private void DrawSerializableField(MarkovSimulationDrawer2D sim)
+        private void DrawSerializableField(MarkovSimulationDrawer3D sim)
         {
             _isShowSerialized = EditorGUILayout.Foldout(_isShowSerialized, "Serialized");
-            if (_isShowSerialized)
-            {
-                serializedScrollPosition =
-                    GUILayout.BeginScrollView(serializedScrollPosition, GUILayout.MaxHeight(500));
-                EditorGUILayout.TextArea(sim.SerializedSimulation);
-                EditorGUILayout.EndScrollView();
-            }
+            if (!_isShowSerialized) return;
+
+            serializedScrollPosition =
+                GUILayout.BeginScrollView(serializedScrollPosition, GUILayout.MaxHeight(500));
+            EditorGUILayout.TextArea(sim.SerializedSimulation);
+            EditorGUILayout.EndScrollView();
         }
 
 
-        private void DrawSimulation(MarkovSimulation<byte> sim2dim, MarkovSimulationDrawer2D sim)
+        private void DrawSimulation(MarkovSimulation<byte> simulation, MarkovSimulationDrawer3D drawer)
         {
             EditorGUILayout.BeginHorizontal();
             seed = EditorGUILayout.IntField("Seed", seed);
             if (GUILayout.Button("Random"))
                 seed = Random.Range(0, int.MaxValue);
             EditorGUILayout.EndHorizontal();
-            if (sim2dim.DefaultState != default)
-                new ResizableDrawer().Draw(sim2dim, sim);
+            if (simulation.DefaultState != default)
+                new ResizableDrawer().Draw(simulation, drawer);
 
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
             {
                 defaultStateScrollPosition = GUILayout.BeginScrollView(defaultStateScrollPosition,
                     GUILayout.MaxHeight(500), GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
-                new StampDrawer().Draw(sim2dim.DefaultState, sim);
+                Drawer.Draw(simulation.DefaultState, drawer);
                 EditorGUILayout.EndScrollView();
             }
 
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(sim2dim.Playables, sim);
+            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(simulation.Playables, drawer);
         }
 
 
         private void Save()
         {
-            MarkovSimulationDrawer2D sim = (MarkovSimulationDrawer2D)target;
+            var sim = (MarkovSimulationDrawer3D)target;
             sim.SerializedSimulation = SimulationSerializer.SerializeSim(sim.MarkovSimulation);
             EditorUtility.SetDirty(sim);
             AssetDatabase.SaveAssets();
@@ -121,12 +120,12 @@ namespace Editor
 
         private void Load()
         {
-            MarkovSimulationDrawer2D sim = (MarkovSimulationDrawer2D)target;
-            sim.Simulation = SimulationSerializer.DeserializeSim2D(sim.SerializedSimulation);
+            var sim = (MarkovSimulationDrawer3D)target;
+            sim.Simulation = SimulationSerializer.DeserializeSim3D(sim.SerializedSimulation);
         }
 
 
-        private void RunOneStep()
+        private static void RunOneStep()
         {
             _sceneContext.Exit();
         }
@@ -135,7 +134,7 @@ namespace Editor
         {
             if (!_sceneContext.IsActive())
                 _sceneContext.Enter();
-            MarkovSimulationDrawer2D sim = (MarkovSimulationDrawer2D)target;
+            MarkovSimulationDrawer3D sim = (MarkovSimulationDrawer3D)target;
             sim.Simulation.Play(seed);
             sim.Visualize(_sceneContext.rootGameObject);
         }

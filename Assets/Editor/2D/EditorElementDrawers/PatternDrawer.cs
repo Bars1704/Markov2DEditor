@@ -4,9 +4,9 @@ using MarkovTest.TwoDimension.Patterns;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor._2D.EditorElementDrawers
 {
-    public class Pattern2DDrawer : IEditorElementDrawer<Pattern<byte>, MarkovSimulationDrawer2D>
+    public class PatternDrawer : IEditorElementDrawer<Pattern<byte>, MarkovSimulationDrawer2D>
     {
         public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulationDrawer2D sim)
         {

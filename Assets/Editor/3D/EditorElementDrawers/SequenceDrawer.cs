@@ -2,11 +2,11 @@ using System;
 using Editor.EditorElementDrawers;
 using MarkovEditor;
 using MarkovTest.Sequences;
-using MarkovTest.TwoDimension;
+using MarkovTest.ThreeDimension;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor._2D.EditorElementDrawers
+namespace Editor._3D.EditorElementDrawers
 {
     public class SequenceDrawer :
         IEditorElementDrawer<SelectRandomSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>,

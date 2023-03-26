@@ -1,11 +1,9 @@
-using MarkovEditor;
 using MarkovEditor._2D;
-using MarkovTest;
 using MarkovTest.TwoDimension.Rules;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor._2D.EditorElementDrawers
 {
     public class AllRuleDrawer : IEditorElementDrawer<AllRule<byte>, MarkovSimulationDrawer2D>
     {
@@ -17,7 +15,7 @@ namespace Editor.EditorElementDrawers
             EditorGUILayout.LabelField("All");
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space(EditorGUI.indentLevel * INTEND_SPACE);
-            new Pattern2DDrawer().Draw(elem.MainPattern, sim);
+            new PatternDrawer().Draw(elem.MainPattern, sim);
             GUILayout.Label("->");
             new StampDrawer().Draw(elem.Stamp, sim);
             EditorGUILayout.EndHorizontal();
