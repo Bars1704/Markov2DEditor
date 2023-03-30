@@ -28,7 +28,7 @@ Scale this on several dimensions, add visualisation (and, progably, some magic),
 voila! Simple maze just in several rules - and that`s only beginning
 
 ## Advantages
-* Versatility - generation core writen on C# without any Unity libraries - you can use it where you want it! Fore core source code, see [Markokv](github.com/Bars1704/UnityMarkov)
+* Versatility - generation core writen on C# without any Unity libraries - you can use it where you want it! Fore core source code, see [Markov](github.com/Bars1704/UnityMarkov)
 * Scalability - you can write your own nodes, if you need - all you have to do is write node class and it`s drawer!
 * Discreteness - using your simulation and having only generation seed you can reproduce same results every time you need it!
 * Creativity - only your imagination limits your possibilities with this tool, because Markov algoritm is Turing complete!
