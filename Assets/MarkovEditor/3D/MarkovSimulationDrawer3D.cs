@@ -5,7 +5,7 @@ using MarkovTest.ThreeDimension;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "UnityMarkov/Simulation3D")]
+[CreateAssetMenu(menuName = "UnityMarkov/Simulations/Simulation3D", order = 2)]
 public class MarkovSimulationDrawer3D : ScriptableObject, IMarkovSimulationDrawer
 {
     [SerializeField] private ColorPalette _colorPaletteLink;

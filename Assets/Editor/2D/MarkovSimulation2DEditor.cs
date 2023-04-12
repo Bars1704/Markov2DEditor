@@ -100,10 +100,7 @@ namespace Editor
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
             {
-                defaultStateScrollPosition = GUILayout.BeginScrollView(defaultStateScrollPosition,
-                    GUILayout.MaxHeight(500), GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
                 new StampDrawer().Draw(sim2dim.DefaultState, sim);
-                EditorGUILayout.EndScrollView();
             }
 
             new PlayableListDrawer<MarkovSimulation<byte>>().Draw(sim2dim.Playables, sim);

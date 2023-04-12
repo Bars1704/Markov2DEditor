@@ -60,13 +60,13 @@ namespace Editor.EditorElementDrawers
 
             EditorGUILayout.EndVertical();
             if (GUILayout.Button("+"))
-                DrawAddNewElemDropList(elem);
+                DrawAddNewElemDropList(elem, sim);
             EditorGUILayout.EndHorizontal();
             return elem;
         }
 
 
-        private void DrawAddNewElemDropList(List<ISequencePlayable<byte, T>> playables)
+        private void DrawAddNewElemDropList(List<ISequencePlayable<byte, T>> playables, IMarkovSimulationDrawer sim)
         {
             GenericMenu menu = new GenericMenu();
 
@@ -94,9 +94,9 @@ namespace Editor.EditorElementDrawers
                         Activator.CreateInstance(CreateGenericType(seq)) as
                             ISequencePlayable<byte, T>));
 
-            menu.AddSeparator("Other/");
+            menu.AddSeparator("3D rules/");
             foreach (var oth in other)
-                AddMenuItem(menu, $"Other/{GetName(oth)}",
+                AddMenuItem(menu, $"3D rules/{GetName(oth)}",
                     () => playables.Add(
                         Activator.CreateInstance(CreateGenericType(oth)) as
                             ISequencePlayable<byte, T>));

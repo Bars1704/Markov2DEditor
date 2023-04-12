@@ -21,6 +21,7 @@ namespace Editor.EditorElementDrawers
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Palette");
+            
             var defaultColor = GUI.backgroundColor;
             GUI.backgroundColor = sim.ColorPaletteLink.CurrentColor;
             GUILayout.Button("", buttonStyle);
@@ -28,6 +29,7 @@ namespace Editor.EditorElementDrawers
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
             defaultColor = GUI.backgroundColor;
+            
             for (byte i = 0; i < sim.ColorPaletteLink.Length; i++)
             {
                 GUI.backgroundColor = sim.ColorPaletteLink.GetColor(i);

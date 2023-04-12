@@ -22,9 +22,10 @@ namespace Editor._3D
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
-        
+
         private int defaultStateZIndexCoord;
         private int seed;
+
         private void Awake()
         {
             Load();
@@ -48,9 +49,9 @@ namespace Editor._3D
             else
                 new PaletteDrawer().Draw(sim.ColorPaletteLink, sim);
 
-            DrawSerializableField(sim);
             DrawSimulation(sim.MarkovSimulation, sim);
 
+            DrawSerializableField(sim);
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Save"))
@@ -70,7 +71,6 @@ namespace Editor._3D
 
             if (GUILayout.Button("Init"))
             {
-               
             }
         }
 
@@ -99,10 +99,7 @@ namespace Editor._3D
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
             {
-                defaultStateScrollPosition = GUILayout.BeginScrollView(defaultStateScrollPosition,
-                    GUILayout.MaxHeight(500), GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
                 Drawer.Draw(simulation.DefaultState, drawer);
-                EditorGUILayout.EndScrollView();
             }
 
             new PlayableListDrawer<MarkovSimulation<byte>>().Draw(simulation.Playables, drawer);

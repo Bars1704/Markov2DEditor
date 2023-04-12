@@ -6,23 +6,28 @@ namespace Editor._3D.EditorElementDrawers
 {
     public class StampDrawer : IEditorElementDrawer<byte[,,], MarkovSimulationDrawer3D>
     {
-        private int _currentZIndex;
-
+        private int _currentYIndex;
+        private bool[] _foldoutsMasks;
         public byte[,,] Draw(byte[,,] elem, MarkovSimulationDrawer3D sim)
         {
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Z index");
-            _currentZIndex = EditorGUILayout.IntField(_currentZIndex, GUILayout.Width(400));
-            _currentZIndex = Mathf.Clamp(_currentZIndex, 0, elem.GetLength(2) - 1);
+            GUILayout.Label("Y index");
+            _currentYIndex = EditorGUILayout.IntField(_currentYIndex, GUILayout.Width(400));
+            _currentYIndex = Mathf.Clamp(_currentYIndex, 0, elem.GetLength(1) - 1);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Separator();
-            for (var y = 0; y < elem.GetLength(1); y++)
+            for (var z = 0; z < elem.GetLength(2); z++)
             {
                 EditorGUILayout.BeginHorizontal();
                 for (var x = 0; x < elem.GetLength(0); x++)
-                    DrawStampElement(elem[x, y, _currentZIndex], sim,
-                        () => elem[x, y, _currentZIndex] = ColorPalette.CurrentColorIndex);
+                {
+                    var x1 = x;
+                    var z1 = z;
+                    DrawStampElement(elem[x, _currentYIndex, z], sim,
+                        () => elem[x1, _currentYIndex, z1
+                        ] = ColorPalette.CurrentColorIndex);
+                }
 
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Separator();

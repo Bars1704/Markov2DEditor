@@ -7,7 +7,7 @@ namespace Editor._3D.EditorElementDrawers
 {
     public class PatternDrawer : IEditorElementDrawer<Pattern<byte>, MarkovSimulationDrawer3D>
     {
-        private int _currentZIndex;
+        private int _currentYIndex;
 
         public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulationDrawer3D sim)
         {
@@ -15,17 +15,21 @@ namespace Editor._3D.EditorElementDrawers
 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Z index");
-            _currentZIndex = EditorGUILayout.IntField(_currentZIndex, GUILayout.Width(400));
-            _currentZIndex = Mathf.Clamp(_currentZIndex, 0, elem.PatternForm.GetLength(2) - 1);
+            GUILayout.Label("Y index");
+            _currentYIndex = EditorGUILayout.IntField(_currentYIndex, GUILayout.Width(400));
+            _currentYIndex = Mathf.Clamp(_currentYIndex, 0, elem.PatternForm.GetLength(1) - 1);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Separator();
-            for (var y = 0; y < elem.PatternForm.GetLength(1); y++)
+            for (var z = 0; z < elem.PatternForm.GetLength(2); z++)
             {
                 EditorGUILayout.BeginHorizontal();
                 for (var x = 0; x < elem.PatternForm.GetLength(0); x++)
-                    DrawPatternElement(elem.PatternForm[x, y, _currentZIndex], sim,
-                        () => elem.PatternForm[x, y, _currentZIndex] = ColorPalette.CurrentColorIndex);
+                {
+                    var x1 = x;
+                    var z1 = z;
+                    DrawPatternElement(elem.PatternForm[x, _currentYIndex, z], sim,
+                        () => elem.PatternForm[x1, _currentYIndex, z1] = ColorPalette.CurrentColorIndex);
+                }
 
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Separator();
@@ -38,6 +42,8 @@ namespace Editor._3D.EditorElementDrawers
         private static void DrawPatternElement(IEquatable<byte> patternElement, MarkovSimulationDrawer3D sim,
             Action OnClicked)
         {
+            if(patternElement == default) return;
+            
             var style = new GUIStyle
             {
                 normal =

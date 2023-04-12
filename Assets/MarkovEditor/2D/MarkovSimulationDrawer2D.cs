@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MarkovEditor._2D
 {
-    [CreateAssetMenu(menuName = "UnityMarkov/Simulation2D")]
+    [CreateAssetMenu(menuName = "UnityMarkov/Simulations/Simulation2D" ,order = 1)]
     public class MarkovSimulationDrawer2D : ScriptableObject, IMarkovSimulationDrawer
     {
         [SerializeField]private ColorPalette _colorPaletteLink;
