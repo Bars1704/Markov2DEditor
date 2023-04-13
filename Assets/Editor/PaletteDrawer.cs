@@ -1,10 +1,8 @@
 using MarkovEditor;
-using MarkovEditor._2D;
-using MarkovTest;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor
 {
     public class PaletteDrawer : IEditorElementDrawer<ColorPalette, IMarkovSimulationDrawer>
     {

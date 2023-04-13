@@ -1,5 +1,5 @@
-using MarkovTest;
-using MarkovTest.TwoDimension;
+using Markov.MarkovTest;
+using Markov.MarkovTest.TwoDimension;
 using UnityEditor;
 using UnityEngine;
 

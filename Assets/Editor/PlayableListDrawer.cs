@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Editor._2D;
+using Markov.MarkovTest;
+using Markov.MarkovTest.Sequences;
+using Markov.MarkovTest.TwoDimension.Rules;
 using MarkovEditor;
-using MarkovTest;
-using MarkovTest.Sequences;
-using MarkovTest.TwoDimension.Rules;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.EditorElementDrawers
+namespace Editor
 {
     public class PlayableListDrawer<T> : IEditorElementDrawer<List<ISequencePlayable<byte, T>>,
         IMarkovSimulationDrawer> where T : IMarkovSimulation<byte>
     {
-        private static List<Type> PlayableTypes = new List<Type>();
+        private static readonly List<Type> PlayableTypes;
         private static GUIStyle _boxStyle;
+        private bool _isOpened = true;
 
         static PlayableListDrawer()
         {
@@ -25,41 +25,39 @@ namespace Editor.EditorElementDrawers
         public List<ISequencePlayable<byte, T>> Draw(
             List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim)
         {
-            _boxStyle ??= new GUIStyle(GUI.skin.box)
-            {
-                normal =
-                {
-                    background = MakeTex(2, 2, new Color(0f, 0f, 0f, 0.15f))
-                }
-            };
-
+            _boxStyle ??= GUIElementsFabric.CreateColorStyle(new Color(0f, 0f, 0f, 0.15f));
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical(_boxStyle);
-            EditorGUILayout.LabelField(GetName(elem.GetType()));
-            for (var i = 0; i < elem.Count; i++)
+
+
+            _isOpened = EditorGUILayout.Foldout(_isOpened, GetName(elem.GetType()));
+            if (_isOpened)
             {
-                void OnDeleteButtonClicked() => elem.Remove(elem[i]);
-
-                var index = i;
-
-                void MoveUp()
+                for (var i = 0; i < elem.Count; i++)
                 {
-                    var newIndex = index <= 0 ? index : index - 1;
-                    (elem[index], elem[newIndex]) = (elem[newIndex], elem[index]);
-                }
+                    void OnDeleteButtonClicked() => elem.Remove(elem[i]);
 
-                void MoveDown()
-                {
-                    var newIndex = index >= elem.Count ? index : index + 1;
-                    (elem[i], elem[newIndex]) = (elem[newIndex], elem[i]);
-                }
+                    var index = i;
 
-                DrawPlayable(elem[i], sim, OnDeleteButtonClicked, MoveUp, MoveDown);
-                EditorGUILayout.Separator();
+                    void MoveUp()
+                    {
+                        var newIndex = index <= 0 ? index : index - 1;
+                        (elem[index], elem[newIndex]) = (elem[newIndex], elem[index]);
+                    }
+
+                    void MoveDown()
+                    {
+                        var newIndex = index >= elem.Count ? index : index + 1;
+                        (elem[i], elem[newIndex]) = (elem[newIndex], elem[i]);
+                    }
+
+                    DrawPlayable(elem[i], sim, OnDeleteButtonClicked, MoveUp, MoveDown);
+                    EditorGUILayout.Separator();
+                }
             }
 
             EditorGUILayout.EndVertical();
-            if (GUILayout.Button("+"))
+            if (GUILayout.Button("+", GUILayout.MaxWidth(25), GUILayout.MaxHeight(25)))
                 DrawAddNewElemDropList(elem, sim);
             EditorGUILayout.EndHorizontal();
             return elem;
@@ -138,19 +136,6 @@ namespace Editor.EditorElementDrawers
             ? t.MakeGenericType(typeof(byte))
             : t.MakeGenericType(typeof(byte), typeof(T));
 
-        private static Texture2D MakeTex(int width, int height, Color col)
-        {
-            var pix = new Color[width * height];
-            for (int i = 0; i < pix.Length; ++i)
-            {
-                pix[i] = col;
-            }
-
-            var result = new Texture2D(width, height);
-            result.SetPixels(pix);
-            result.Apply();
-            return result;
-        }
 
         private static IEnumerable<Type> GetAllPlayables()
         {

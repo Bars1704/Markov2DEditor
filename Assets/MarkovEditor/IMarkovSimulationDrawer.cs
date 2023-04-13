@@ -1,4 +1,4 @@
-using MarkovTest;
+using Markov.MarkovTest;
 using UnityEngine;
 
 namespace MarkovEditor

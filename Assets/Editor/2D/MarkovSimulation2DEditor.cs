@@ -1,9 +1,8 @@
 using Editor._2D.EditorElementDrawers;
-using Editor.EditorElementDrawers;
+using Markov.MarkovTest;
+using Markov.MarkovTest.Serialization;
+using Markov.MarkovTest.TwoDimension;
 using MarkovEditor._2D;
-using MarkovTest;
-using MarkovTest.Serialization;
-using MarkovTest.TwoDimension;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +10,7 @@ using Random = UnityEngine.Random;
 // ReSharper disable AccessToModifiedClosure
 
 
-namespace Editor
+namespace Editor._2D
 {
     [CustomEditor(typeof(MarkovSimulationDrawer2D))]
     public class MarkovSimulation2DEditor : UnityEditor.Editor
@@ -23,6 +22,8 @@ namespace Editor
         private bool _isShowSerialized;
 
         private int seed;
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
+            new PlayableListDrawer<MarkovSimulation<byte>>();
 
         private void Awake()
         {
@@ -103,7 +104,7 @@ namespace Editor
                 new StampDrawer().Draw(sim2dim.DefaultState, sim);
             }
 
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(sim2dim.Playables, sim);
+            listDrawer.Draw(sim2dim.Playables, sim);
         }
 
 

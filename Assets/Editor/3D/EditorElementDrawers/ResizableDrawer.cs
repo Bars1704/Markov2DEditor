@@ -1,7 +1,8 @@
+using MarkovEditor._3D;
 using UnityEditor;
 using UnityEngine;
-using IResizable = MarkovTest.ThreeDimension.IResizable;
-using Vector3Int = MarkovTest.ThreeDimension.Vector3Int;
+using IResizable = Markov.MarkovTest.ThreeDimension.IResizable;
+using Vector3Int = Markov.MarkovTest.ThreeDimension.Vector3Int;
 
 namespace Editor._3D.EditorElementDrawers
 {

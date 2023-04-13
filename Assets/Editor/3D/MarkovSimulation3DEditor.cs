@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Editor._3D.EditorElementDrawers;
-using Editor.EditorElementDrawers;
-using MarkovTest;
-using MarkovTest.Serialization;
-using MarkovTest.ThreeDimension;
+using Markov.MarkovTest.Serialization;
+using Markov.MarkovTest.ThreeDimension;
+using MarkovEditor._3D;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -25,7 +24,8 @@ namespace Editor._3D
 
         private int defaultStateZIndexCoord;
         private int seed;
-
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
+            new PlayableListDrawer<MarkovSimulation<byte>>();
         private void Awake()
         {
             Load();
@@ -102,7 +102,7 @@ namespace Editor._3D
                 Drawer.Draw(simulation.DefaultState, drawer);
             }
 
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(simulation.Playables, drawer);
+            listDrawer.Draw(simulation.Playables, drawer);
         }
 
 

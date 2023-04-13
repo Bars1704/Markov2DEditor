@@ -1,8 +1,8 @@
+using Markov.MarkovTest.TwoDimension;
 using MarkovEditor._2D;
-using MarkovTest.TwoDimension;
 using UnityEditor;
 using UnityEngine;
-using Vector2Int = MarkovTest.TwoDimension.Vector2Int;
+using Vector2Int = Markov.MarkovTest.TwoDimension.Vector2Int;
 
 namespace Editor._2D.EditorElementDrawers
 {

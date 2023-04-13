@@ -1,4 +1,4 @@
-using MarkovTest.TwoDimension.Patterns;
+using Markov.MarkovTest.TwoDimension.Patterns;
 using UnityEngine;
 
 public class SimplePatternContainer : MonoBehaviour

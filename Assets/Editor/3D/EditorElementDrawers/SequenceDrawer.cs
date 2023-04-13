@@ -1,8 +1,7 @@
 using System;
-using Editor.EditorElementDrawers;
+using Markov.MarkovTest.Sequences;
+using Markov.MarkovTest.ThreeDimension;
 using MarkovEditor;
-using MarkovTest.Sequences;
-using MarkovTest.ThreeDimension;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,12 +12,18 @@ namespace Editor._3D.EditorElementDrawers
         IEditorElementDrawer<MarkovSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>,
         IEditorElementDrawer<CycleSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>
     {
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> selectRandomDrawer =
+            new PlayableListDrawer<MarkovSimulation<byte>>();
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> markovDrawer =
+            new PlayableListDrawer<MarkovSimulation<byte>>();
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> cycleDrawer =
+            new PlayableListDrawer<MarkovSimulation<byte>>();
         public SelectRandomSequence<byte, MarkovSimulation<byte>> Draw(
             SelectRandomSequence<byte, MarkovSimulation<byte>> elem,
             IMarkovSimulationDrawer sim)
         {
             EditorGUILayout.LabelField("Random");
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
+            selectRandomDrawer.Draw(elem.Playables, sim);
             return elem;
         }
 
@@ -26,7 +31,7 @@ namespace Editor._3D.EditorElementDrawers
             IMarkovSimulationDrawer sim)
         {
             EditorGUILayout.LabelField("Markov");
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
+            markovDrawer.Draw(elem.Playables, sim);
             return elem;
         }
 
@@ -38,7 +43,7 @@ namespace Editor._3D.EditorElementDrawers
             };
 
             elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycle", elem.Cycles, style), 1);
-            new PlayableListDrawer<MarkovSimulation<byte>>().Draw(elem.Playables, sim);
+            cycleDrawer.Draw(elem.Playables, sim);
             return elem;
         }
     }

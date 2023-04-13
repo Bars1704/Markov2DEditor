@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using MarkovEditor;
+using MarkovEditor._3D;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,33 +9,46 @@ namespace Editor._3D.EditorElementDrawers
 {
     public class StampDrawer : IEditorElementDrawer<byte[,,], MarkovSimulationDrawer3D>
     {
-        private int _currentYIndex;
-        private bool[] _foldoutsMasks;
+        private bool[] _foldoutsMasks = Array.Empty<bool>();
+
+        private static bool[] Resize(IReadOnlyList<bool> source, int newSize)
+        {
+            var result = new bool[newSize];
+            var minSize = Math.Min(source.Count, newSize);
+            for (var i = 0; i < minSize; i++)
+                result[i] = source[i];
+            return result;
+        }
+
         public byte[,,] Draw(byte[,,] elem, MarkovSimulationDrawer3D sim)
         {
+            if (_foldoutsMasks.Length < elem.GetLength(1))
+                _foldoutsMasks = Resize(_foldoutsMasks, elem.GetLength(1));
             EditorGUILayout.BeginVertical();
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Y index");
-            _currentYIndex = EditorGUILayout.IntField(_currentYIndex, GUILayout.Width(400));
-            _currentYIndex = Mathf.Clamp(_currentYIndex, 0, elem.GetLength(1) - 1);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.Separator();
-            for (var z = 0; z < elem.GetLength(2); z++)
+
+            EditorGUI.indentLevel++;
+            for (var y = 0; y < elem.GetLength(1); y++)
             {
-                EditorGUILayout.BeginHorizontal();
-                for (var x = 0; x < elem.GetLength(0); x++)
+                _foldoutsMasks[y] = EditorGUILayout.Foldout(_foldoutsMasks[y], $"Y: {y.ToString()}");
+                if (!_foldoutsMasks[y]) continue;
+                
+                for (var z = 0; z < elem.GetLength(2); z++)
                 {
-                    var x1 = x;
-                    var z1 = z;
-                    DrawStampElement(elem[x, _currentYIndex, z], sim,
-                        () => elem[x1, _currentYIndex, z1
-                        ] = ColorPalette.CurrentColorIndex);
+                    EditorGUILayout.BeginHorizontal();
+                    for (var x = 0; x < elem.GetLength(0); x++)
+                    {
+                        var x1 = x;
+                        var z1 = z;
+                        DrawStampElement(elem[x, y, z], sim,
+                            () => elem[x1, y, z1
+                            ] = ColorPalette.CurrentColorIndex);
+                    }
+
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.Separator();
                 }
-
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.Separator();
             }
-
+            EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
             return elem;
         }
