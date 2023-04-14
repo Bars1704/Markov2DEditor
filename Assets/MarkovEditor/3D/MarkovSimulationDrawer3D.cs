@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Markov.MarkovTest;
 using Markov.MarkovTest.ThreeDimension;
+using MarkovEditor.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,8 +30,7 @@ namespace MarkovEditor._3D
         {
             _cachedMaterials.Clear();
 
-            var defaultMat =
-                (Material)AssetDatabase.LoadAssetAtPath("Assets/Editor/Resources/DefaultMaterial.mat", typeof(Material));
+            var defaultMat = EditorResources.Instance.DefaultMaterial;
             for (byte i = 0; i < ColorPaletteLink.Length; i++)
             {
                 var newMat = Instantiate(defaultMat);

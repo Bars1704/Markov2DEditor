@@ -1,5 +1,6 @@
 using Markov.MarkovTest;
 using Markov.MarkovTest.TwoDimension;
+using MarkovEditor.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ namespace MarkovEditor._2D
                         DestroyImmediate(spriteRenderer.gameObject);
 
             visualizationMatrix = new SpriteRenderer[sizeX, sizeY];
-            Sprite s = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Editor/Resources/cell.png", typeof(Sprite));
+            Sprite s = EditorResources.Instance.DefaultSprite;
 
             for (int x = 0; x < sizeX; x++)
             {

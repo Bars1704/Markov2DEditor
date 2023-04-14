@@ -30,7 +30,7 @@ namespace Editor
             EditorGUILayout.BeginVertical(_boxStyle);
 
 
-            _isOpened = EditorGUILayout.Foldout(_isOpened, GetName(elem.GetType()));
+            _isOpened = EditorGUILayout.Foldout(_isOpened,"Content");
             if (_isOpened)
             {
                 for (var i = 0; i < elem.Count; i++)

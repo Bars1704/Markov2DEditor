@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a15d21a4c790346ba388b01fd7d71d, type: 3}
   m_Name: EditorResources
   m_EditorClassIdentifier: 
-  DefaultMaterial: {fileID: 0}
-  DefaultSprite: {fileID: 0}
-  EditorPalette: {fileID: 0}
+  DefaultMaterial: {fileID: 2100000, guid: b9f13c23061ce9740adfc0fcb41f4b37, type: 2}
+  DefaultSprite: {fileID: 21300000, guid: ea635b5d4b0210246ab01b1905bfbfd5, type: 3}
+  EditorPalette: {fileID: 11400000, guid: 12cc159722e0aeb408dfc33c2496356c, type: 2}

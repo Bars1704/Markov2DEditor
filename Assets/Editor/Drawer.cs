@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MarkovEditor;
+using MarkovEditor.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -37,18 +38,18 @@ namespace Editor
 
         public static void Draw(object elem, IMarkovSimulationDrawer sim)
         {
-            if(elem == default)
+            if (elem == default)
             {
                 EditorGUILayout.HelpBox($"Elem is null", MessageType.Error);
                 return;
             }
-            
+
             if (CachedDrawers.ContainsKey(elem))
             {
                 InvokeDraw(CachedDrawers[elem], elem, sim);
                 return;
             }
-            
+
             var elemType = elem.GetType();
 
             var seekType = typeof(IEditorElementDrawer<,>).MakeGenericType(elemType, sim.GetType());
@@ -62,14 +63,22 @@ namespace Editor
 
             var drawer = Activator.CreateInstance(type);
             CachedDrawers.Add(elem, drawer);
-            
+
             InvokeDraw(drawer, elem, sim);
         }
 
         private static void InvokeDraw(object drawer, object elem, IMarkovSimulationDrawer sim)
         {
-            var method = drawer.GetType().GetMethod("Draw", new Type[] { elem.GetType(), sim.GetType() });
+            var editorPalette = EditorResources.Instance.EditorPalette;
+            var type = elem.GetType();
+
+            var color = editorPalette.GetColor(type);
+            var style = GUIElementsFabric.CreateColorStyle(color);
+
+            var method = drawer.GetType().GetMethod("Draw", new Type[] { type, sim.GetType() });
+            EditorGUILayout.BeginVertical(style);
             method.Invoke(drawer, new object[] { elem, sim });
+            EditorGUILayout.EndVertical();
         }
     }
 }

@@ -1,11 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using MarkovEditor;
 using UnityEngine;
 
-public class EditorResources : ScriptableObject
+namespace MarkovEditor.Settings
 {
-    public Material DefaultMaterial;
-    public Sprite DefaultSprite;
-    public EditorPalette EditorPalette;
+    public class EditorResources : ScriptableObject
+    {
+        private static EditorResources _instance;
+
+        public static EditorResources Instance
+        {
+            get
+            {
+                if (_instance != default)
+                    return _instance;
+                _instance = Resources.LoadAll<EditorResources>("/")[0];
+                return _instance;
+            }
+        }
+
+        public Material DefaultMaterial;
+        public Sprite DefaultSprite;
+        public EditorPalette EditorPalette;
+    }
 }

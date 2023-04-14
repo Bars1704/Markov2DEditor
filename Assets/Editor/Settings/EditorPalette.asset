@@ -12,4 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ad50b96011ff4bbc27fce6c4c9e52, type: 3}
   m_Name: EditorPalette
   m_EditorClassIdentifier: 
-  Colors: []
+  Colors:
+  - Color: {r: 0.06132126, g: 1, b: 0, a: 0.4745098}
+    TypeName: TwoDimension.Rules.AllRule
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: TwoDimension.Rules.RandomRule
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: ThreeDimension.Rules.AllRule
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: ThreeDimension.Rules.RandomRule
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: Sequences.CycleSequence
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: Sequences.MarkovSequence
+  - Color: {r: 0, g: 0, b: 0, a: 0}
+    TypeName: Sequences.SelectRandomSequence

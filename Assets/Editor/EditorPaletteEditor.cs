@@ -1,12 +1,18 @@
+using System;
 using MarkovEditor;
 using UnityEditor;
-using UnityEngine;
 
 namespace Editor
 {
     [CustomEditor(typeof(EditorPalette))]
     public class EditorPaletteEditor : UnityEditor.Editor
     {
+        private void OnEnable()
+        {
+            var palette = target as EditorPalette;
+            palette.Fill();
+        }
+
         public override void OnInspectorGUI()
         {
             var palette = target as EditorPalette;
@@ -22,9 +28,6 @@ namespace Editor
             }
 
             EditorGUILayout.EndVertical();
-
-            if (GUILayout.Button("Fill"))
-                palette.Fill();
         }
     }
 }
