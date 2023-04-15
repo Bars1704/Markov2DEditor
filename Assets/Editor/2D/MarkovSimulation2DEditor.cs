@@ -22,6 +22,7 @@ namespace Editor._2D
         private bool _isShowSerialized;
 
         private int seed;
+
         private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
 
@@ -101,7 +102,13 @@ namespace Editor._2D
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
             {
-                new StampDrawer().Draw(sim2dim.DefaultState, sim);
+                if (GUILayout.Button("Visualize"))
+                {
+                    if (!_sceneContext.IsActive())
+                        _sceneContext.Enter();
+                    MatrixVisualizer2D.Visualize((x,y)=>sim.MarkovSimulation.DefaultState[x,y], sim.MarkovSimulation.Size, sim.ColorPaletteLink,_sceneContext.rootGameObject);
+                }
+                Drawer.Draw(sim2dim.DefaultState, sim);
             }
 
             listDrawer.Draw(sim2dim.Playables, sim);
@@ -135,7 +142,11 @@ namespace Editor._2D
                 _sceneContext.Enter();
             MarkovSimulationDrawer2D sim = (MarkovSimulationDrawer2D)target;
             sim.Simulation.Play(seed);
-            sim.Visualize(_sceneContext.rootGameObject);
+            MatrixVisualizer2D.Visualize(
+                (x, y) => sim.MarkovSimulation[x, y],
+                sim.MarkovSimulation.Size,
+                sim.ColorPaletteLink,
+                _sceneContext.rootGameObject);
         }
     }
 }

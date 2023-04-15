@@ -22,13 +22,7 @@ namespace MarkovEditor
         public Color GetColor(Type type)
         {
             var color = Colors.FirstOrDefault(x => x.TypeName == GetName(type));
-            if (color == default)
-            {
-                Debug.LogError($"There is no color gor type {type.FullName}");
-                return default;
-            }
-
-            return color.Color;
+            return color?.Color ?? default;
         }
 
         public void Fill()

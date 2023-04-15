@@ -13,7 +13,7 @@ namespace Editor
     {
         private const string Name = "Simulation";
 
-        public Scene Scene { get; private set; }
+        public  Scene Scene { get; private set; }
         private SceneSetup[] rootScenesSetup;
         private SceneViewCache[] sceneViewCaches;
         public GameObject rootGameObject { get; private set; }

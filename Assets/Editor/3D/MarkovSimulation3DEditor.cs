@@ -15,17 +15,19 @@ namespace Editor._3D
     [CustomEditor(typeof(MarkovSimulationDrawer3D))]
     public class MarkovSimulation3DEditor : UnityEditor.Editor
     {
-        private static readonly SceneContext _sceneContext = new SceneContext();
         private Vector2 serializedScrollPosition;
         private Vector2 defaultStateScrollPosition;
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
+        private static readonly SceneContext _sceneContext = new SceneContext();
 
         private int defaultStateZIndexCoord;
         private int seed;
+
         private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
+
         private void Awake()
         {
             Load();
@@ -99,6 +101,12 @@ namespace Editor._3D
             _isShowDefaultState = EditorGUILayout.Foldout(_isShowDefaultState, "Initial state");
             if (_isShowDefaultState)
             {
+                if (GUILayout.Button("Visualize"))
+                {
+                    if (!_sceneContext.IsActive())
+                        _sceneContext.Enter();
+                    MatrixVisualizer3D.Visualize((x,y,z)=>drawer.MarkovSimulation.DefaultState[x,y,z], drawer.MarkovSimulation.Size, drawer.ColorPaletteLink,_sceneContext.rootGameObject);
+                }
                 Drawer.Draw(simulation.DefaultState, drawer);
             }
 
@@ -133,7 +141,12 @@ namespace Editor._3D
                 _sceneContext.Enter();
             MarkovSimulationDrawer3D sim = (MarkovSimulationDrawer3D)target;
             sim.Simulation.Play(seed);
-            sim.Visualize(_sceneContext.rootGameObject);
+            
+            MatrixVisualizer3D.Visualize(
+                (x, y, z) => sim.MarkovSimulation[x, y, z],
+                sim.MarkovSimulation.Size,
+                sim.ColorPaletteLink,
+                _sceneContext.rootGameObject);
         }
     }
 }
