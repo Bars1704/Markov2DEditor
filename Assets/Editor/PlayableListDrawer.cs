@@ -5,6 +5,7 @@ using Markov.MarkovTest;
 using Markov.MarkovTest.Sequences;
 using Markov.MarkovTest.TwoDimension.Rules;
 using MarkovEditor;
+using MarkovEditor.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -116,9 +117,9 @@ namespace Editor
             if (GUILayout.Button("x", GUILayout.Width(20), GUILayout.Height(20)))
                 OnDeleteButtonClicked?.Invoke();
             EditorGUILayout.Separator();
-            if (GUILayout.Button("^\n|", GUILayout.Width(20), GUILayout.Height(30)))
+            if (GUILayout.Button(EditorResources.Instance.UpArrowContent, GUILayout.Width(20), GUILayout.Height(20)))
                 moveUp?.Invoke();
-            if (GUILayout.Button("|\nv", GUILayout.Width(20), GUILayout.Height(30)))
+            if (GUILayout.Button(EditorResources.Instance.DownArrowContent, GUILayout.Width(20), GUILayout.Height(20)))
                 moveDown?.Invoke();
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();

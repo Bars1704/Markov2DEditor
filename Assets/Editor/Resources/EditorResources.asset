@@ -15,3 +15,17 @@ MonoBehaviour:
   DefaultMaterial: {fileID: 2100000, guid: b9f13c23061ce9740adfc0fcb41f4b37, type: 2}
   DefaultSprite: {fileID: 21300000, guid: ea635b5d4b0210246ab01b1905bfbfd5, type: 3}
   EditorPalette: {fileID: 11400000, guid: 12cc159722e0aeb408dfc33c2496356c, type: 2}
+  UpArrowContent:
+    m_Text: '^
+
+      |'
+    m_Image: {fileID: 2800000, guid: 6fa16082a3e545947aa5834e1b1479f3, type: 3}
+    m_Tooltip: 
+  DownArrowContent:
+    m_Text: '|
+
+      v'
+    m_Image: {fileID: 2800000, guid: a13cef8195f5d7647968cf659dd40b74, type: 3}
+    m_Tooltip: 
+  UpArrowSprite: {fileID: 2800000, guid: 6fa16082a3e545947aa5834e1b1479f3, type: 3}
+  DownArrowSprite: {fileID: 2800000, guid: a13cef8195f5d7647968cf659dd40b74, type: 3}
