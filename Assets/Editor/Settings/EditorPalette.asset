@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: EditorPalette
   m_EditorClassIdentifier: 
   Colors:
-  - Color: {r: 0.06132126, g: 1, b: 0, a: 0.4745098}
+  - Color: {r: 0.19607843, g: 0.27450982, b: 0.24313726, a: 0.78431374}
     TypeName: TwoDimension.Rules.AllRule
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.19607843, g: 0.2495914, b: 0.27450982, a: 0.78431374}
     TypeName: TwoDimension.Rules.RandomRule
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.19607843, g: 0.27450982, b: 0.24313726, a: 0.78431374}
     TypeName: ThreeDimension.Rules.AllRule
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.19607843, g: 0.2509804, b: 0.27450982, a: 0.78431374}
     TypeName: ThreeDimension.Rules.RandomRule
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.27450982, g: 0.26763874, b: 0.19607843, a: 0.78431374}
     TypeName: Sequences.CycleSequence
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.27450982, g: 0.22079538, b: 0.19607843, a: 0.78431374}
     TypeName: Sequences.MarkovSequence
-  - Color: {r: 0, g: 0, b: 0, a: 0}
+  - Color: {r: 0.27450982, g: 0.19607843, b: 0.19687967, a: 0.78431374}
     TypeName: Sequences.SelectRandomSequence

@@ -16,7 +16,6 @@ namespace MarkovEditor
     public class EditorPalette : ScriptableObject
     {
         public List<ColorStringTuple> Colors = new List<ColorStringTuple>();
-
         public bool HasColor(Type type) => Colors.FirstOrDefault(x => x.TypeName == GetName(type)) != default;
 
         public Color GetColor(Type type)

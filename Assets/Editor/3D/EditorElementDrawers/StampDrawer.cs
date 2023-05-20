@@ -29,7 +29,7 @@ namespace Editor._3D.EditorElementDrawers
             EditorGUI.indentLevel++;
             for (var y = 0; y < elem.GetLength(1); y++)
             {
-                _foldoutsMasks[y] = EditorGUILayout.Foldout(_foldoutsMasks[y], $"Y: {y.ToString()}");
+                _foldoutsMasks[y] = EditorGUILayout.Foldout(_foldoutsMasks[y], $"Y Layer: {y.ToString()}");
                 if (!_foldoutsMasks[y]) continue;
                 
                 for (var z = 0; z < elem.GetLength(2); z++)

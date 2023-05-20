@@ -24,14 +24,16 @@ namespace Editor
         }
 
         public List<ISequencePlayable<byte, T>> Draw(
-            List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim)
+            List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim) => Draw(elem, sim, "");
+        public List<ISequencePlayable<byte, T>> Draw(
+            List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim, string foldout)
         {
             _boxStyle ??= GUIElementsFabric.CreateColorStyle(new Color(0f, 0f, 0f, 0.15f));
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical(_boxStyle);
 
 
-            _isOpened = EditorGUILayout.Foldout(_isOpened,"Content");
+            _isOpened = EditorGUILayout.Foldout(_isOpened, foldout);
             if (_isOpened)
             {
                 for (var i = 0; i < elem.Count; i++)

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8869804126477493347dd02c6d5c33, type: 3}
   m_Name: New Markov Simulation Drawer 3D
   m_EditorClassIdentifier: 
-  _colorPaletteLink: {fileID: 11400000, guid: e0bfa9ba9a766144d88f238075ac0447, type: 2}
+  _colorPaletteLink: {fileID: 11400000, guid: 31c9ca912061bcb4ab877ac41178f838, type: 2}

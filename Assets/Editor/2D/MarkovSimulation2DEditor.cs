@@ -15,15 +15,15 @@ namespace Editor._2D
     [CustomEditor(typeof(MarkovSimulationDrawer2D))]
     public class MarkovSimulation2DEditor : UnityEditor.Editor
     {
-        private static readonly SceneContext _sceneContext = new SceneContext();
-        private Vector2 serializedScrollPosition;
-        private Vector2 defaultStateScrollPosition;
+        private static readonly SceneContext SceneContext = new SceneContext();
+        private Vector2 _serializedScrollPosition;
+        private Vector2 _defaultStateScrollPosition;
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
-        private int seed;
+        private int _seed;
 
-        private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> _listDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
 
         private void Awake()
@@ -81,8 +81,8 @@ namespace Editor._2D
             _isShowSerialized = EditorGUILayout.Foldout(_isShowSerialized, "Serialized");
             if (_isShowSerialized)
             {
-                serializedScrollPosition =
-                    GUILayout.BeginScrollView(serializedScrollPosition, GUILayout.MaxHeight(500));
+                _serializedScrollPosition =
+                    GUILayout.BeginScrollView(_serializedScrollPosition, GUILayout.MaxHeight(500));
                 EditorGUILayout.TextArea(sim.SerializedSimulation);
                 EditorGUILayout.EndScrollView();
             }
@@ -92,9 +92,9 @@ namespace Editor._2D
         private void DrawSimulation(MarkovSimulation<byte> sim2dim, MarkovSimulationDrawer2D sim)
         {
             EditorGUILayout.BeginHorizontal();
-            seed = EditorGUILayout.IntField("Seed", seed);
+            _seed = EditorGUILayout.IntField("Seed", _seed);
             if (GUILayout.Button("Random"))
-                seed = Random.Range(0, int.MaxValue);
+                _seed = Random.Range(0, int.MaxValue);
             EditorGUILayout.EndHorizontal();
             if (sim2dim.DefaultState != default)
                 new ResizableDrawer().Draw(sim2dim, sim);
@@ -104,14 +104,14 @@ namespace Editor._2D
             {
                 if (GUILayout.Button("Visualize"))
                 {
-                    if (!_sceneContext.IsActive())
-                        _sceneContext.Enter();
-                    MatrixVisualizer2D.Visualize((x,y)=>sim.MarkovSimulation.DefaultState[x,y], sim.MarkovSimulation.Size, sim.ColorPaletteLink,_sceneContext.rootGameObject);
+                    if (!SceneContext.IsActive())
+                        SceneContext.Enter();
+                    MatrixVisualizer2D.Visualize((x,y)=>sim.MarkovSimulation.DefaultState[x,y], sim.MarkovSimulation.Size, sim.ColorPaletteLink,SceneContext.rootGameObject);
                 }
                 Drawer.Draw(sim2dim.DefaultState, sim);
             }
 
-            listDrawer.Draw(sim2dim.Playables, sim);
+            _listDrawer.Draw(sim2dim.Playables, sim);
         }
 
 
@@ -133,20 +133,20 @@ namespace Editor._2D
 
         private void RunOneStep()
         {
-            _sceneContext.Exit();
+            SceneContext.Exit();
         }
 
         private void Run()
         {
-            if (!_sceneContext.IsActive())
-                _sceneContext.Enter();
+            if (!SceneContext.IsActive())
+                SceneContext.Enter();
             MarkovSimulationDrawer2D sim = (MarkovSimulationDrawer2D)target;
-            sim.Simulation.Play(seed);
+            sim.Simulation.Play(_seed);
             MatrixVisualizer2D.Visualize(
                 (x, y) => sim.MarkovSimulation[x, y],
                 sim.MarkovSimulation.Size,
                 sim.ColorPaletteLink,
-                _sceneContext.rootGameObject);
+                SceneContext.rootGameObject);
         }
     }
 }

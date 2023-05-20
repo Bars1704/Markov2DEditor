@@ -18,6 +18,7 @@ namespace Editor
 
             EditorGUILayout.LabelField("Colors");
             EditorGUILayout.BeginVertical();
+            
             for (var i = 0; i < palette.Colors.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();

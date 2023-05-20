@@ -15,17 +15,17 @@ namespace Editor._3D
     [CustomEditor(typeof(MarkovSimulationDrawer3D))]
     public class MarkovSimulation3DEditor : UnityEditor.Editor
     {
-        private Vector2 serializedScrollPosition;
-        private Vector2 defaultStateScrollPosition;
+        private Vector2 _serializedScrollPosition;
+        private Vector2 _defaultStateScrollPosition;
         private bool _isShowDefaultState;
         private bool _isShowSerialized;
 
-        private static readonly SceneContext _sceneContext = new SceneContext();
+        private static readonly SceneContext SceneContext = new SceneContext();
 
-        private int defaultStateZIndexCoord;
-        private int seed;
+        private int _defaultStateZIndexCoord;
+        private int _seed;
 
-        private readonly PlayableListDrawer<MarkovSimulation<byte>> listDrawer =
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> _listDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
 
         private void Awake()
@@ -81,8 +81,8 @@ namespace Editor._3D
             _isShowSerialized = EditorGUILayout.Foldout(_isShowSerialized, "Serialized");
             if (!_isShowSerialized) return;
 
-            serializedScrollPosition =
-                GUILayout.BeginScrollView(serializedScrollPosition, GUILayout.MaxHeight(500));
+            _serializedScrollPosition =
+                GUILayout.BeginScrollView(_serializedScrollPosition, GUILayout.MaxHeight(500));
             EditorGUILayout.TextArea(sim.SerializedSimulation);
             EditorGUILayout.EndScrollView();
         }
@@ -91,9 +91,9 @@ namespace Editor._3D
         private void DrawSimulation(MarkovSimulation<byte> simulation, MarkovSimulationDrawer3D drawer)
         {
             EditorGUILayout.BeginHorizontal();
-            seed = EditorGUILayout.IntField("Seed", seed);
+            _seed = EditorGUILayout.IntField("Seed", _seed);
             if (GUILayout.Button("Random"))
-                seed = Random.Range(0, int.MaxValue);
+                _seed = Random.Range(0, int.MaxValue);
             EditorGUILayout.EndHorizontal();
             if (simulation.DefaultState != default)
                 new ResizableDrawer().Draw(simulation, drawer);
@@ -103,14 +103,14 @@ namespace Editor._3D
             {
                 if (GUILayout.Button("Visualize"))
                 {
-                    if (!_sceneContext.IsActive())
-                        _sceneContext.Enter();
-                    MatrixVisualizer3D.Visualize((x,y,z)=>drawer.MarkovSimulation.DefaultState[x,y,z], drawer.MarkovSimulation.Size, drawer.ColorPaletteLink,_sceneContext.rootGameObject);
+                    if (!SceneContext.IsActive())
+                        SceneContext.Enter();
+                    MatrixVisualizer3D.Visualize((x,y,z)=>drawer.MarkovSimulation.DefaultState[x,y,z], drawer.MarkovSimulation.Size, drawer.ColorPaletteLink,SceneContext.rootGameObject);
                 }
                 Drawer.Draw(simulation.DefaultState, drawer);
             }
 
-            listDrawer.Draw(simulation.Playables, drawer);
+            _listDrawer.Draw(simulation.Playables, drawer);
         }
 
 
@@ -132,21 +132,21 @@ namespace Editor._3D
 
         private static void RunOneStep()
         {
-            _sceneContext.Exit();
+            SceneContext.Exit();
         }
 
         private void Run()
         {
-            if (!_sceneContext.IsActive())
-                _sceneContext.Enter();
+            if (!SceneContext.IsActive())
+                SceneContext.Enter();
             MarkovSimulationDrawer3D sim = (MarkovSimulationDrawer3D)target;
-            sim.Simulation.Play(seed);
+            sim.Simulation.Play(_seed);
             
             MatrixVisualizer3D.Visualize(
                 (x, y, z) => sim.MarkovSimulation[x, y, z],
                 sim.MarkovSimulation.Size,
                 sim.ColorPaletteLink,
-                _sceneContext.rootGameObject);
+                SceneContext.rootGameObject);
         }
     }
 }
