@@ -27,7 +27,7 @@ namespace Editor._3D
 
         private readonly PlayableListDrawer<MarkovSimulation<byte>> _listDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
-
+        
         private void Awake()
         {
             Load();
@@ -47,33 +47,43 @@ namespace Editor._3D
             if (sim.ColorPaletteLink == default)
             {
                 EditorGUILayout.HelpBox("Palette is not set!", MessageType.Error);
+                return;
             }
-            else
-                new PaletteDrawer().Draw(sim.ColorPaletteLink, sim);
+
+            new PaletteDrawer().Draw(sim.ColorPaletteLink, sim);
 
             DrawSimulation(sim.MarkovSimulation, sim);
 
-            DrawSerializableField(sim);
+           // DrawSerializableField(sim);
 
+            EditorGUILayout.Space();
+
+            var halfWidth = GUILayout.Width(EditorGUIUtility.currentViewWidth / 2);
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Save"))
+            if (GUILayout.Button("Save simulation", halfWidth))
                 Save();
 
-            if (GUILayout.Button("Rewind"))
+            if (GUILayout.Button("Undo changes", halfWidth))
                 Load();
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Exit"))
-                RunOneStep();
+            EditorGUILayout.Space();
 
-            if (GUILayout.Button("Run"))
-                Run();
+            EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.BeginHorizontal(halfWidth);
+            GUILayout.Label("Seed: ");
+            _seed = EditorGUILayout.IntField(_seed);
+            if (GUILayout.Button("Random"))
+                _seed = Random.Range(0, int.MaxValue);
             EditorGUILayout.EndHorizontal();
 
-            if (GUILayout.Button("Init"))
-            {
-            }
+            if (GUILayout.Button("Run simulation"))
+                Run();
+
+            if (GUILayout.Button("Exit simulation"))
+                Exit();
+            EditorGUILayout.EndHorizontal();
         }
 
         private void DrawSerializableField(MarkovSimulationDrawer3D sim)
@@ -90,11 +100,6 @@ namespace Editor._3D
 
         private void DrawSimulation(MarkovSimulation<byte> simulation, MarkovSimulationDrawer3D drawer)
         {
-            EditorGUILayout.BeginHorizontal();
-            _seed = EditorGUILayout.IntField("Seed", _seed);
-            if (GUILayout.Button("Random"))
-                _seed = Random.Range(0, int.MaxValue);
-            EditorGUILayout.EndHorizontal();
             if (simulation.DefaultState != default)
                 new ResizableDrawer().Draw(simulation, drawer);
 
@@ -105,12 +110,14 @@ namespace Editor._3D
                 {
                     if (!SceneContext.IsActive())
                         SceneContext.Enter();
-                    MatrixVisualizer3D.Visualize((x,y,z)=>drawer.MarkovSimulation.DefaultState[x,y,z], drawer.MarkovSimulation.Size, drawer.ColorPaletteLink,SceneContext.rootGameObject);
+                    MatrixVisualizer3D.Visualize((x, y, z) => drawer.MarkovSimulation.DefaultState[x, y, z],
+                        drawer.MarkovSimulation.Size, drawer.ColorPaletteLink, SceneContext.rootGameObject);
                 }
+
                 Drawer.Draw(simulation.DefaultState, drawer);
             }
 
-            _listDrawer.Draw(simulation.Playables, drawer);
+            _listDrawer.Draw(simulation.Playables, drawer, "Simulation");
         }
 
 
@@ -130,7 +137,7 @@ namespace Editor._3D
         }
 
 
-        private static void RunOneStep()
+        private static void Exit()
         {
             SceneContext.Exit();
         }
@@ -141,7 +148,7 @@ namespace Editor._3D
                 SceneContext.Enter();
             MarkovSimulationDrawer3D sim = (MarkovSimulationDrawer3D)target;
             sim.Simulation.Play(_seed);
-            
+
             MatrixVisualizer3D.Visualize(
                 (x, y, z) => sim.MarkovSimulation[x, y, z],
                 sim.MarkovSimulation.Size,

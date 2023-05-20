@@ -23,8 +23,6 @@ namespace Editor._3D.EditorElementDrawers
 
         public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulationDrawer3D sim)
         {
-            elem.RotationSettings = new RotationSettingsDrawer().Draw(elem.RotationSettings, sim);
-
             if (_foldoutsMasks.Length < elem.PatternForm.GetLength(1))
                 _foldoutsMasks = Resize(_foldoutsMasks, elem.PatternForm.GetLength(1));
 

@@ -12,26 +12,24 @@ namespace Editor._3D.EditorElementDrawers
         IEditorElementDrawer<MarkovSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>,
         IEditorElementDrawer<CycleSequence<byte, MarkovSimulation<byte>>, IMarkovSimulationDrawer>
     {
-        private readonly PlayableListDrawer<MarkovSimulation<byte>> selectRandomDrawer =
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> _selectRandomDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
-        private readonly PlayableListDrawer<MarkovSimulation<byte>> markovDrawer =
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> _markovDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
-        private readonly PlayableListDrawer<MarkovSimulation<byte>> cycleDrawer =
+        private readonly PlayableListDrawer<MarkovSimulation<byte>> _cycleDrawer =
             new PlayableListDrawer<MarkovSimulation<byte>>();
         public SelectRandomSequence<byte, MarkovSimulation<byte>> Draw(
             SelectRandomSequence<byte, MarkovSimulation<byte>> elem,
             IMarkovSimulationDrawer sim)
         {
-            EditorGUILayout.LabelField("Random");
-            selectRandomDrawer.Draw(elem.Playables, sim);
+            _selectRandomDrawer.Draw(elem.Playables, sim,"Random sequence");
             return elem;
         }
 
         public MarkovSequence<byte, MarkovSimulation<byte>> Draw(MarkovSequence<byte, MarkovSimulation<byte>> elem,
             IMarkovSimulationDrawer sim)
         {
-            EditorGUILayout.LabelField("Markov");
-            markovDrawer.Draw(elem.Playables, sim);
+            _markovDrawer.Draw(elem.Playables, sim,"Markov sequence");
             return elem;
         }
 
@@ -42,8 +40,8 @@ namespace Editor._3D.EditorElementDrawers
                 alignment = TextAnchor.MiddleLeft
             };
 
-            elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycle", elem.Cycles, style), 1);
-            cycleDrawer.Draw(elem.Playables, sim);
+            elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycles count:", elem.Cycles, style), 1);
+            _cycleDrawer.Draw(elem.Playables, sim, "Cycle sequence");
             return elem;
         }
     }

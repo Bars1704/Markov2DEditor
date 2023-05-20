@@ -29,9 +29,9 @@ namespace Editor
             List<ISequencePlayable<byte, T>> elem, IMarkovSimulationDrawer sim, string foldout)
         {
             _boxStyle ??= GUIElementsFabric.CreateColorStyle(new Color(0f, 0f, 0f, 0.15f));
+            
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical(_boxStyle);
-
 
             _isOpened = EditorGUILayout.Foldout(_isOpened, foldout);
             if (_isOpened)
@@ -57,12 +57,14 @@ namespace Editor
                     DrawPlayable(elem[i], sim, OnDeleteButtonClicked, MoveUp, MoveDown);
                     EditorGUILayout.Separator();
                 }
+                
+                if (GUILayout.Button("+", GUILayout.MaxWidth(100)))
+                    DrawAddNewElemDropList(elem, sim);
             }
 
             EditorGUILayout.EndVertical();
-            if (GUILayout.Button("+", GUILayout.MaxWidth(25), GUILayout.MaxHeight(25)))
-                DrawAddNewElemDropList(elem, sim);
             EditorGUILayout.EndHorizontal();
+            
             return elem;
         }
 
@@ -111,17 +113,19 @@ namespace Editor
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.BeginHorizontal();
+            
             EditorGUILayout.BeginVertical();
             Drawer.Draw(playable, sim);
             EditorGUILayout.EndVertical();
 
-            EditorGUILayout.BeginVertical();
-            if (GUILayout.Button("x", GUILayout.Width(20), GUILayout.Height(20)))
+            const int  BUTTON_SIZE = 20;
+            EditorGUILayout.BeginVertical(GUILayout.Width(BUTTON_SIZE + 6));
+            if (GUILayout.Button("x", GUILayout.Width(BUTTON_SIZE), GUILayout.Height(BUTTON_SIZE)))
                 OnDeleteButtonClicked?.Invoke();
             EditorGUILayout.Separator();
-            if (GUILayout.Button(EditorResources.Instance.UpArrowContent, GUILayout.Width(20), GUILayout.Height(20)))
+            if (GUILayout.Button(EditorResources.Instance.UpArrowContent, GUILayout.Width(BUTTON_SIZE), GUILayout.Height(BUTTON_SIZE)))
                 moveUp?.Invoke();
-            if (GUILayout.Button(EditorResources.Instance.DownArrowContent, GUILayout.Width(20), GUILayout.Height(20)))
+            if (GUILayout.Button(EditorResources.Instance.DownArrowContent, GUILayout.Width(BUTTON_SIZE), GUILayout.Height(BUTTON_SIZE)))
                 moveDown?.Invoke();
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();

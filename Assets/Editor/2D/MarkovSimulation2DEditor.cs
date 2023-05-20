@@ -45,29 +45,43 @@ namespace Editor._2D
             if (sim.ColorPaletteLink == default)
             {
                 EditorGUILayout.HelpBox("Palette is not set!", MessageType.Error);
+                return;
             }
-            else
-                new PaletteDrawer().Draw(sim.ColorPaletteLink, sim);
 
-            DrawSerializableField(sim);
+            new PaletteDrawer().Draw(sim.ColorPaletteLink, sim);
+
+            //DrawSerializableField(sim);
             DrawSimulation(sim.MarkovSimulation, sim);
 
+            EditorGUILayout.Space();
 
+            var halfWidth = GUILayout.Width(EditorGUIUtility.currentViewWidth / 2);
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Save"))
+            if (GUILayout.Button("Save simulation", halfWidth))
                 Save();
 
-            if (GUILayout.Button("Rewind"))
+            if (GUILayout.Button("Undo changes", halfWidth))
                 Load();
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Exit"))
-                RunOneStep();
+            EditorGUILayout.Space();
 
-            if (GUILayout.Button("Run"))
-                Run();
+            EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.BeginHorizontal(halfWidth);
+            GUILayout.Label("Seed: ");
+            _seed = EditorGUILayout.IntField(_seed);
+            if (GUILayout.Button("Random"))
+                _seed = Random.Range(0, int.MaxValue);
             EditorGUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Run simulation"))
+                Run();
+
+            if (GUILayout.Button("Exit simulation"))
+                Exit();
+            EditorGUILayout.EndHorizontal();
+
 
             if (GUILayout.Button("Init"))
             {
@@ -91,11 +105,6 @@ namespace Editor._2D
 
         private void DrawSimulation(MarkovSimulation<byte> sim2dim, MarkovSimulationDrawer2D sim)
         {
-            EditorGUILayout.BeginHorizontal();
-            _seed = EditorGUILayout.IntField("Seed", _seed);
-            if (GUILayout.Button("Random"))
-                _seed = Random.Range(0, int.MaxValue);
-            EditorGUILayout.EndHorizontal();
             if (sim2dim.DefaultState != default)
                 new ResizableDrawer().Draw(sim2dim, sim);
 
@@ -106,12 +115,14 @@ namespace Editor._2D
                 {
                     if (!SceneContext.IsActive())
                         SceneContext.Enter();
-                    MatrixVisualizer2D.Visualize((x,y)=>sim.MarkovSimulation.DefaultState[x,y], sim.MarkovSimulation.Size, sim.ColorPaletteLink,SceneContext.rootGameObject);
+                    MatrixVisualizer2D.Visualize((x, y) => sim.MarkovSimulation.DefaultState[x, y],
+                        sim.MarkovSimulation.Size, sim.ColorPaletteLink, SceneContext.rootGameObject);
                 }
+
                 Drawer.Draw(sim2dim.DefaultState, sim);
             }
 
-            _listDrawer.Draw(sim2dim.Playables, sim);
+            _listDrawer.Draw(sim2dim.Playables, sim, "Simulation");
         }
 
 
@@ -131,7 +142,7 @@ namespace Editor._2D
         }
 
 
-        private void RunOneStep()
+        private void Exit()
         {
             SceneContext.Exit();
         }

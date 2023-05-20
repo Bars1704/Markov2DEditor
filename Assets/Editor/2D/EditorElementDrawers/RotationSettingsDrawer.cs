@@ -10,14 +10,14 @@ namespace Editor._2D.EditorElementDrawers
         public RotationSettingsFlags Draw(RotationSettingsFlags elem, MarkovSimulationDrawer2D sim)
         {
             RotationSettingsFlags resultFlag = RotationSettingsFlags.None;
-            EditorGUILayout.BeginVertical();
+            EditorGUILayout.BeginHorizontal(GUILayout.Width(350));
             if (GUILayout.Toggle(elem.HasFlag(RotationSettingsFlags.Rotate), "Rotate"))
-                resultFlag = resultFlag | RotationSettingsFlags.Rotate;
+                resultFlag |= RotationSettingsFlags.Rotate;
             if (GUILayout.Toggle(elem.HasFlag(RotationSettingsFlags.FlipX), "FlipX"))
-                resultFlag = resultFlag | RotationSettingsFlags.FlipX;
+                resultFlag |= RotationSettingsFlags.FlipX;
             if (GUILayout.Toggle(elem.HasFlag(RotationSettingsFlags.FlipY), "FlipY"))
-                resultFlag = resultFlag | RotationSettingsFlags.FlipY;
-            EditorGUILayout.EndVertical();
+                resultFlag |= RotationSettingsFlags.FlipY;
+            EditorGUILayout.EndHorizontal();
             return resultFlag;
         }
     }

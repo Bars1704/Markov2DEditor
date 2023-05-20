@@ -24,14 +24,14 @@ namespace Editor._2D.EditorElementDrawers
             SelectRandomSequence<byte, MarkovSimulation<byte>> elem,
             IMarkovSimulationDrawer sim)
         {
-            _selectRandomDrawer.Draw(elem.Playables, sim, "Random");
+            _selectRandomDrawer.Draw(elem.Playables, sim, "Random sequence");
             return elem;
         }
 
         public MarkovSequence<byte, MarkovSimulation<byte>> Draw(MarkovSequence<byte, MarkovSimulation<byte>> elem,
             IMarkovSimulationDrawer sim)
         {
-            _markovDrawer.Draw(elem.Playables, sim, "Markov");
+            _markovDrawer.Draw(elem.Playables, sim, "Markov sequence");
             return elem;
         }
 
@@ -42,8 +42,8 @@ namespace Editor._2D.EditorElementDrawers
                 alignment = TextAnchor.MiddleLeft
             };
 
-            elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycle", elem.Cycles, style), 1);
-            _cycleDrawer.Draw(elem.Playables, sim, "Cycle");
+            elem.Cycles = Math.Max(EditorGUILayout.IntField("Cycles count", elem.Cycles, style), 1);
+            _cycleDrawer.Draw(elem.Playables, sim, "Cycle sequence");
             return elem;
         }
     }

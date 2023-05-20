@@ -11,7 +11,6 @@ namespace Editor._2D.EditorElementDrawers
     {
         public Pattern<byte> Draw(Pattern<byte> elem, MarkovSimulationDrawer2D sim)
         {
-            elem.RotationSettings = new RotationSettingsDrawer().Draw(elem.RotationSettings, sim);
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical();
             for (var y = 0; y < elem.PatternForm.GetLength(1); y++)
